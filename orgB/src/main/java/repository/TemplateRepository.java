@@ -17,6 +17,7 @@ public class TemplateRepository {
     public TemplateRepository() {
         templates = new HashMap<>();
         templates.put("SimpleOperator", EventOperatorB.class);
+        templates.put("ElapsedTimeSink", ElapsedTimeSink.class);
     }
 
     // TODO: make it more generic later
