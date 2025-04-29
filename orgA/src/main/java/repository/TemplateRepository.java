@@ -19,6 +19,7 @@ public class TemplateRepository {
         templates = new HashMap<>();
         templates.put("SimpleSource", SourceA.class);
         templates.put("SimpleSink", SinkA.class);
+        templates.put("TimeSource", TimeSource.class);
     }
 
     public <T extends ProcessingElement> T createInstanceFromTemplate(String templateID) {

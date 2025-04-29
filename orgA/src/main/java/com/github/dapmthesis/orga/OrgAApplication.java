@@ -29,7 +29,7 @@ public class OrgAApplication {
         String orgID = "orgA";
         String contents;
         try {
-            contents = Files.readString(Paths.get("orgA/src/main/representations/simple_pipeline.json"));
+            contents = Files.readString(Paths.get("orgA/src/main/representations/transfer_time_pipeline.json"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
