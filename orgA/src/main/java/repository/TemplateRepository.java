@@ -2,9 +2,12 @@ package repository;
 
 import org.springframework.stereotype.Repository;
 import pipeline.processingelement.ProcessingElement;
-import templates.SinkA;
-import templates.SourceA;
-import templates.TimeSource;
+import templates.AlignmentSource;
+import templates.BackpressureSource;
+import templates.LoggingOverheadSource;
+import templates.ThroughputSource;
+import templates.scalability.TimeOperator;
+import templates.scalability.TimeSource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -17,9 +20,12 @@ public class TemplateRepository {
 
     public TemplateRepository() {
         templates = new HashMap<>();
-        templates.put("SimpleSource", SourceA.class);
-        templates.put("SimpleSink", SinkA.class);
+        templates.put("ThroughputSource", ThroughputSource.class);
+        templates.put("AlignmentSource", AlignmentSource.class);
+        templates.put("BackpressureSource", BackpressureSource.class);
+        templates.put("LoggingOverheadSource", LoggingOverheadSource.class);
         templates.put("TimeSource", TimeSource.class);
+        templates.put("TimeOperator", TimeOperator.class);
     }
 
     public <T extends ProcessingElement> T createInstanceFromTemplate(String templateID) {

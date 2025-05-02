@@ -2,8 +2,13 @@ package repository;
 
 import org.springframework.stereotype.Repository;
 import pipeline.processingelement.ProcessingElement;
-import templates.ElapsedTimeSink;
-import templates.EventOperatorB;
+import templates.AlignmentSink;
+import templates.BackpressureSink;
+import templates.ThroughputSink;
+import templates.LoggingOverheadSink;
+import templates.scalability.TimeOperator;
+import templates.scalability.TimeSink;
+import templates.scalability.TimeSource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -16,8 +21,13 @@ public class TemplateRepository {
 
     public TemplateRepository() {
         templates = new HashMap<>();
-        templates.put("SimpleOperator", EventOperatorB.class);
-        templates.put("ElapsedTimeSink", ElapsedTimeSink.class);
+        templates.put("ThroughputSink", ThroughputSink.class);
+        templates.put("AlignmentSink", AlignmentSink.class);
+        templates.put("BackpressureSink", BackpressureSink.class);
+        templates.put("LoggingOverheadSink", LoggingOverheadSink.class);
+        templates.put("TimeSource", TimeSource.class);
+        templates.put("TimeOperator", TimeOperator.class);
+        templates.put("TimeSink", TimeSink.class);
     }
 
     // TODO: make it more generic later

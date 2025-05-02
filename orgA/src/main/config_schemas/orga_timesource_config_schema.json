@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.dapm.org/config/timesource_config_schema.json",
-  "title": "TimeSource Config",
+  "$id": "https://www.dapm.org/config/orga_timesource_config_schema.json",
+  "title": "orgA TimeSource Config",
   "type": "object",
   "properties": {},
   "additionalProperties": false

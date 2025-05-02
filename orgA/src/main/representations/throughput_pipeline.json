@@ -1,0 +1,18 @@
+{
+  "processing elements":[
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "InstantTime", "instanceNumber": 1, "configuration": {} },
+    { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "ThroughputSink",  "inputs": ["InstantTime"],  "output": null,  "instanceNumber": 1, "configuration": {} }
+  ],
+
+  "channels": [
+    {
+      "publisher": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "InstantTime", "instanceNumber": 1, "configuration": {} },
+      "subscribers": [
+        {
+          "processing element": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "ThroughputSink",  "inputs": ["InstantTime"],  "output": null,  "instanceNumber": 1, "configuration": {} },
+          "portNumber": 1
+        }
+      ]
+    }
+  ]
+}
