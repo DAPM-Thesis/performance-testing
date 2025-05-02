@@ -1,21 +1,21 @@
 package controller;
 
-import communication.API.PEInstanceResponse;
+import communication.API.request.PEInstanceRequest;
+import communication.API.response.PEInstanceResponse;
 import communication.config.ConsumerConfig;
 import communication.config.ProducerConfig;
 import communication.message.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pipeline.processingelement.Sink;
-import pipeline.processingelement.Source;
 import pipeline.processingelement.operator.Operator;
+import pipeline.processingelement.source.Source;
 import repository.PEInstanceRepository;
 import repository.TemplateRepository;
 import utils.IDGenerator;
 import utils.JsonUtil;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/pipelineBuilder")
@@ -23,15 +23,22 @@ public class PipelineBuilderController {
     @Value("${organization.broker.orgB}")
     private String orgBBroker;
 
-    private final TemplateRepository templateRepository = new TemplateRepository();
-    private final PEInstanceRepository peInstanceRepository = new PEInstanceRepository();
+    private final TemplateRepository templateRepository;
+    private final PEInstanceRepository peInstanceRepository;
+
+    @Autowired
+    public PipelineBuilderController(TemplateRepository templateRepository, PEInstanceRepository peInstanceRepository) {
+        this.templateRepository = templateRepository;
+        this.peInstanceRepository = peInstanceRepository;
+    }
 
     @PostMapping("/source/templateID/{templateID}")
-    public ResponseEntity<PEInstanceResponse> configureSource(@PathVariable String templateID) {
+    public ResponseEntity<PEInstanceResponse> configureSource(@PathVariable String templateID, @RequestBody PEInstanceRequest requestBody) {
         String decodedTemplateID = JsonUtil.decode(templateID);
 
         Source<Message> source = templateRepository.createInstanceFromTemplate(decodedTemplateID);
         if (source != null) {
+            source.setConfiguration(requestBody.getConfiguration());
             String topic = IDGenerator.generateTopic();
             ProducerConfig producerConfig = new ProducerConfig(orgBBroker, topic);
             source.registerProducer(producerConfig);
@@ -46,11 +53,12 @@ public class PipelineBuilderController {
     }
 
     @PostMapping("/operator/templateID/{templateID}")
-    public ResponseEntity<PEInstanceResponse> createOperator(@PathVariable String templateID, @RequestBody List<ConsumerConfig> consumerConfigs) {
+    public ResponseEntity<PEInstanceResponse> createOperator(@PathVariable String templateID, @RequestBody PEInstanceRequest requestBody) {
         String decodedTemplateID = JsonUtil.decode(templateID);
         Operator<Message, Message> operator = templateRepository.createInstanceFromTemplate(decodedTemplateID);
         if (operator != null) {
-            for (ConsumerConfig config : consumerConfigs) {
+            operator.setConfiguration(requestBody.getConfiguration());
+            for (ConsumerConfig config : requestBody.getConsumerConfigs()) {
                 operator.registerConsumer(config);
             }
             String topic = IDGenerator.generateTopic();
@@ -67,11 +75,12 @@ public class PipelineBuilderController {
     }
 
     @PostMapping("/sink/templateID/{templateID}")
-    public ResponseEntity<PEInstanceResponse> createSink(@PathVariable String templateID, @RequestBody List<ConsumerConfig> consumerConfigs) {
+    public ResponseEntity<PEInstanceResponse> createSink(@PathVariable String templateID, @RequestBody PEInstanceRequest requestBody) {
         String decodedTemplateID = JsonUtil.decode(templateID);
         Sink sink = templateRepository.createInstanceFromTemplate(decodedTemplateID);
         if (sink != null) {
-            for (ConsumerConfig config : consumerConfigs) {
+            sink.setConfiguration(requestBody.getConfiguration());
+            for (ConsumerConfig config : requestBody.getConsumerConfigs()) {
                 sink.registerConsumer(config);
             }
             String instanceID = peInstanceRepository.storeInstance(sink);

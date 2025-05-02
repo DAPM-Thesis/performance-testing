@@ -2,12 +2,12 @@ package templates;
 
 import communication.message.impl.event.Event;
 import experiment.ExperimentLogger;
-import pipeline.processingelement.Source;
+import pipeline.processingelement.source.SimpleSource;
 
 import java.nio.file.Paths;
 import java.util.HashSet;
 
-public class AlignmentSource extends Source<Event> {
+public class AlignmentSource extends SimpleSource<Event> {
     private int counter = 0;
     private int messageCap = 5200;
     private final ExperimentLogger logger = new ExperimentLogger(Paths.get(

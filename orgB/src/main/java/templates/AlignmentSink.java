@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AlignmentSink extends Sink {
     ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/alignment/sink_experiment_2.txt"
+            "experiment_results/alignment/DELETE.txt"
     ).toAbsolutePath());
 
     @Override

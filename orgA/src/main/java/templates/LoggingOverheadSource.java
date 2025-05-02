@@ -1,9 +1,9 @@
 package templates;
 
 import communication.message.impl.InstantTime;
-import pipeline.processingelement.Source;
+import pipeline.processingelement.source.SimpleSource;
 
-public class LoggingOverheadSource extends Source<InstantTime> {
+public class LoggingOverheadSource extends SimpleSource<InstantTime> {
     private int counter = 0;
     private final int messageCap = 500000;
     @Override

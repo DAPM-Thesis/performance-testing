@@ -1,9 +1,9 @@
 package templates.scalability;
 
 import communication.message.impl.InstantTime;
-import pipeline.processingelement.Source;
+import pipeline.processingelement.source.SimpleSource;
 
-public class TimeSource extends Source<InstantTime> {
+public class TimeSource extends SimpleSource<InstantTime> {
     int counter = 0;
     @Override
     public InstantTime process() {
