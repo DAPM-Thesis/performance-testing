@@ -1,4 +1,4 @@
-package templates.scalability;
+package templates;
 
 import communication.message.Message;
 import communication.message.impl.InstantTime;

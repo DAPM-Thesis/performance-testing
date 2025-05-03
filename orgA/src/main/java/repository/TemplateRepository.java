@@ -6,8 +6,8 @@ import templates.AlignmentSource;
 import templates.BackpressureSource;
 import templates.LoggingOverheadSource;
 import templates.ThroughputSource;
-import templates.scalability.TimeOperator;
-import templates.scalability.TimeSource;
+import templates.TimeOperator;
+import templates.TimeSource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pipelineBuilder")
 public class PipelineBuilderController {
-    @Value("${organization.broker.orgB}")
+    @Value("${organization.broker.orgA}")
     private String orgBBroker;
 
     private final TemplateRepository templateRepository;
