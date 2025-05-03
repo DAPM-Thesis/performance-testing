@@ -14,8 +14,8 @@ import java.util.Map;
 
 public class ThroughputSink extends Sink {
     private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/throughput/experiment_11.txt"
-            ).toAbsolutePath());
+            "experiment_results/throughput/DELETE.txt"
+            ).toAbsolutePath()); // currently set to DELETE.txt in case pipeline is run just to see if it compiles (and so no tests are overwritten)
     private Instant firstReceivedTime = null;
     private Instant deadline;
     private final int experimentLengthSeconds = 60 * 5;

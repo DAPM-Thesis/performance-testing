@@ -1,4 +1,4 @@
-package templates.scalability;
+package templates;
 
 import communication.message.impl.InstantTime;
 import pipeline.processingelement.source.SimpleSource;

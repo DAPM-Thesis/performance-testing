@@ -20,7 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"controller", "pipeline", "communication"})
+@ComponentScan(basePackages = {"controller", "pipeline", "communication", "repository"})
 public class OrgAApplication {
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class OrgAApplication {
         String orgID = "orgA";
         String contents;
         try {
-            contents = Files.readString(Paths.get("orgA/src/main/representations/alignment_pipeline.json"));
+            contents = Files.readString(Paths.get("orgA/src/main/representations/throughput_pipeline.json"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
