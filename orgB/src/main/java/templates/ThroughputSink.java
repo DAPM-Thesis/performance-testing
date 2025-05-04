@@ -1,8 +1,7 @@
 package templates;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
-import communication.message.impl.Time;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.Sink;
 
@@ -14,7 +13,7 @@ import java.util.Map;
 
 public class ThroughputSink extends Sink {
     private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/throughput/DELETE.txt"
+            "experiment_results/DELETE/DELETE.txt"
             ).toAbsolutePath()); // currently set to DELETE.txt in case pipeline is run just to see if it compiles (and so no tests are overwritten)
     private Instant firstReceivedTime = null;
     private Instant deadline;
@@ -32,7 +31,7 @@ public class ThroughputSink extends Sink {
         Instant receivedTime = Instant.now();
         counter++;
         if (counter % 10000 == 0) {
-            Instant sentTime = ((InstantTime) message).getTime();
+            Instant sentTime = ((UTCTime) message).getTime();
             Duration elapsedTime = Duration.between(sentTime, receivedTime);
             long elapsedNanoseconds = elapsedTime.toNanos();
             logger.log(Long.toString(elapsedNanoseconds));
@@ -47,7 +46,7 @@ public class ThroughputSink extends Sink {
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
         Map<Class<? extends Message>, Integer> map = new HashMap<>();
-        map.put(Time.class, 1);
+        map.put(UTCTime.class, 1);
         return map;
     }
 }

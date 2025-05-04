@@ -1,13 +1,13 @@
 package templates;
 
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.source.SimpleSource;
 
 import java.nio.file.Paths;
 import java.time.Instant;
 
-public class BackpressureSource extends SimpleSource<InstantTime> {
+public class BackpressureSource extends SimpleSource<UTCTime> {
     private int counter = 0;
     private long secondsBeforeSleep = 20;
     private boolean startedSleeping = false;
@@ -17,7 +17,7 @@ public class BackpressureSource extends SimpleSource<InstantTime> {
     ).toAbsolutePath());
 
     @Override
-    public InstantTime process() {
+    public UTCTime process() {
         if (counter == 0) {
             System.out.println("Source Started. No sleep yet.");
             sleepStart = Instant.now().plusSeconds(secondsBeforeSleep);
@@ -33,6 +33,6 @@ public class BackpressureSource extends SimpleSource<InstantTime> {
             }
             try { Thread.sleep(1); } catch (InterruptedException e) { throw new RuntimeException(e); }
         }
-        return new InstantTime();
+        return new UTCTime();
     }
 }

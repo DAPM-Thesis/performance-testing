@@ -1,7 +1,7 @@
 package templates;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.Sink;
 
@@ -43,6 +43,6 @@ public class LoggingOverheadSink extends Sink {
 
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
-        return Map.of(InstantTime.class, 1);
+        return Map.of(UTCTime.class, 1);
     }
 }

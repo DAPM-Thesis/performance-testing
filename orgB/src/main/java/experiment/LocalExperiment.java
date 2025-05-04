@@ -1,7 +1,7 @@
 package experiment;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import communication.message.serialization.MessageSerializer;
 import communication.message.serialization.deserialization.MessageFactory;
 
@@ -21,11 +21,11 @@ public class LocalExperiment {
         Instant start = Instant.now();
         Instant deadline = start.plusSeconds(experimentLengthSeconds);
         while (Instant.now().isBefore(deadline)) {
-            InstantTime sent = new InstantTime();
+            UTCTime sent = new UTCTime();
             MessageSerializer serializer = new MessageSerializer();
             sent.acceptVisitor(serializer);
             String serialization = serializer.getSerialization();
-            InstantTime deserialize = (InstantTime) MessageFactory.deserialize(serialization);
+            UTCTime deserialize = (UTCTime) MessageFactory.deserialize(serialization);
             Duration controlLatency = Duration.between(sent.getTime(), Instant.now());
             logger.log(Long.toString(controlLatency.toNanos()));
         }

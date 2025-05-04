@@ -1,7 +1,7 @@
 package templates.scalability;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.Sink;
 
@@ -26,7 +26,7 @@ public class TimeSink extends Sink {
             System.out.println("Sink started. Stopping after " + experimentLengthSeconds + " seconds.");
         }
         Instant receivedTime = Instant.now();
-        Instant sentTime = ((InstantTime) message).getTime();
+        Instant sentTime = ((UTCTime) message).getTime();
         long latencyNs = Duration.between(sentTime, receivedTime).toNanos();
         String logInfo = String.valueOf(i) + ':' + latencyNs;
         logger.log(logInfo);
@@ -40,6 +40,6 @@ public class TimeSink extends Sink {
 
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
-        return Map.of(InstantTime.class, 2);
+        return Map.of(UTCTime.class, 2);
     }
 }

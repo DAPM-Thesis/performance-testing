@@ -1,19 +1,19 @@
 package templates;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import pipeline.processingelement.operator.SimpleOperator;
 
 import java.util.Map;
 
-public class TimeOperator extends SimpleOperator<InstantTime> {
+public class TimeOperator extends SimpleOperator<UTCTime> {
     @Override
-    protected InstantTime process(Message message, int i) {
-        return (InstantTime) message;
+    protected UTCTime process(Message message, int i) {
+        return (UTCTime) message;
     }
 
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
-        return Map.of(InstantTime.class, 1);
+        return Map.of(UTCTime.class, 1);
     }
 }

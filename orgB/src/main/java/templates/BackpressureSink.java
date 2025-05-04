@@ -1,7 +1,7 @@
 package templates;
 
 import communication.message.Message;
-import communication.message.impl.InstantTime;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.Sink;
 
@@ -33,7 +33,7 @@ public class BackpressureSink extends Sink {
             System.out.println("Sink started processing at UTC: " + Instant.now());
         }
 
-        Instant sent = ((InstantTime) message).getTime();
+        Instant sent = ((UTCTime) message).getTime();
         Instant received = Instant.now();
         long latencyMs = Duration.between(sent, received).toMillis();
         if (messageCounter++ % 2500 == 0) {
@@ -48,6 +48,6 @@ public class BackpressureSink extends Sink {
 
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
-        return Map.of(InstantTime.class, 1);
+        return Map.of(UTCTime.class, 1);
     }
 }
