@@ -23,6 +23,7 @@ public class ThroughputSource extends SimpleSource<UTCTime> {
 
     @Override
     public UTCTime process() {
+        if (counter == 0) { System.out.println("ThroughputSource started with sleep time = " + sleepTime + " ms."); }
         counter++;
         if (counter % sleepFrequency == 0) {
             try { Thread.sleep(sleepTime); }

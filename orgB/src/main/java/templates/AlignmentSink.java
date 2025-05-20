@@ -11,27 +11,34 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class AlignmentSink extends Sink {
-    ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/alignment/TEMP_DELETE.txt"
-    ).toAbsolutePath());
+    private final int messageCap;
+    ExperimentLogger logger;
 
     public AlignmentSink(Configuration configuration) {
         super(configuration);
+
+        this.messageCap = (int) configuration.get("message_send_count");
+        String savePath = "experiment_results/alignment/" + configuration.get("save_file").toString();
+        this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
     @Override
     public void observe(Pair<Message, Integer> messageAndPort) {
         String activity = ((Event) messageAndPort.first()).getActivity();
         logger.log(activity);
-
         int count = Integer.parseInt(activity);
-        if (count == 0) { System.out.println("Received first message."); }
-        else if (count % 1000 == 0 && count != 0) {
-            System.out.println("Received " + activity + " messages.");
+        maybeSendUserOutput(count);
+
+        if (count >= messageCap) {
+            System.out.println("AlignmentSink finished.\nTerminating. Last received number: " + count + '.');
+            terminate();
         }
-        if (count >= 5200) {
-            System.out.println("Sink finished.\nShutting down. Last received number: " + activity + '.');
-            System.exit(0);
+    }
+
+    private void maybeSendUserOutput(int count) {
+        if (count == 0) { System.out.println("Received first message."); }
+        else if (count % 1000 == 0) {
+            System.out.println("Received " + count + " messages.");
         }
     }
 

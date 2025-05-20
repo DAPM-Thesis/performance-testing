@@ -3,6 +3,10 @@
   "$id": "https://www.dapm.org/config/orga_alignmentsource_config_schema.json",
   "title": "orgA AlignmentSource Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "message_send_count": {"type": "integer", "minimum": 1},
+    "save_file": { "type": "string", "pattern": "^[^/\\\\]*$" }
+  },
+  "required": ["save_file", "message_send_count"],
   "additionalProperties": false
 }

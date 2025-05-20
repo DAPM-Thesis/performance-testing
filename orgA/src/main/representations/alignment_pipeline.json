@@ -1,15 +1,15 @@
 {
   "processing elements":[
-    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "AlignmentSource", "inputs": [], "output": "Event", "instanceNumber": 1, "configuration": {} },
-    { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "AlignmentSink",  "inputs": ["Event"],  "output": null,  "instanceNumber": 1, "configuration": {} }
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "AlignmentSource", "inputs": [], "output": "Event", "instanceNumber": 1, "configuration": { "message_send_count": 10000, "save_file": "10k_source.txt" } },
+    { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "AlignmentSink",  "inputs": ["Event"],  "output": null,  "instanceNumber": 1, "configuration": { "message_send_count": 10000, "save_file": "10k_sink.txt" } }
   ],
 
   "channels": [
     {
-      "publisher": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "AlignmentSource", "inputs": [], "output": "Event", "instanceNumber": 1, "configuration": {} },
+      "publisher": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "AlignmentSource", "inputs": [], "output": "Event", "instanceNumber": 1, "configuration": { "message_send_count": 10000, "save_file": "10k_source.txt" } },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "AlignmentSink",  "inputs": ["Event"],  "output": null,  "instanceNumber": 1, "configuration": {} },
+          "processing element": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "AlignmentSink",  "inputs": ["Event"],  "output": null,  "instanceNumber": 1, "configuration": { "message_send_count": 10000, "save_file": "10k_sink.txt" } },
           "portNumber": 1
         }
       ]

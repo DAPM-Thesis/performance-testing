@@ -43,7 +43,9 @@ public class OrgAApplication {
                 "throughput/1ms_sleep_pipeline.json",
                 "throughput/5ms_sleep_pipeline.json",
                 "throughput/05ms_sleep_pipeline.json",
-                "throughput/075ms_sleep_pipeline.json");
+                "throughput/075ms_sleep_pipeline.json",
+                "alignment_pipeline.json"
+                );
 
         runExperiments(pipelineNames,
                 experimentLengthSeconds,

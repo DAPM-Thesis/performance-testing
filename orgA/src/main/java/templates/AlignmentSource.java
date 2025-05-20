@@ -10,25 +10,29 @@ import java.util.HashSet;
 
 public class AlignmentSource extends SimpleSource<Event> {
     private int counter = 0;
-    private int messageCap = 5200;
-    private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/alignment/source_experiment_2.txt"
-    ).toAbsolutePath());
+    private final int messageCap;
+    private final ExperimentLogger logger;
 
     public AlignmentSource(Configuration configuration) {
         super(configuration);
+        this.messageCap = (int) configuration.get("message_send_count");
+
+        String savePath = "experiment_results/alignment/" + configuration.get("save_file").toString();
+        this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
     @Override
     public Event process() {
-        if (counter == 0) { System.out.println("Source Started. Message cap: " + messageCap + '.'); }
+        if (counter == 0) { System.out.println("AlignmentSource started. Messages to be sent: " + messageCap + '.'); }
 
         counter++;
-        if (counter > 5200) { // stop operation to allow sink to catch up
-            System.out.println("Source finished.\nSleeping.");
-            try { Thread.sleep(20 * 1000); } catch (InterruptedException e) { throw new RuntimeException(e); }
+        if (counter > messageCap) { // stop operation to allow sink to catch up
+            System.out.println("AlignmentSource finished. Terminating.");
+            terminate();
         }
+
         logger.log(String.valueOf(counter));
+
         return new Event(
                 "alignment",
                 String.valueOf(counter),

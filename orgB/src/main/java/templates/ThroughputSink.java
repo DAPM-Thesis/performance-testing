@@ -20,7 +20,7 @@ public class ThroughputSink extends Sink {
 
     public ThroughputSink(Configuration configuration) {
         super(configuration);
-        String saveFile = configuration.get("save_file").toString();
+        String savePath = "experiment_results/throughput/" + configuration.get("save_file").toString();
         Object logFrequency = configuration.get("log_frequency");
 
         this.logger = new ExperimentLogger(Paths.get(saveFile).toAbsolutePath());
