@@ -36,17 +36,18 @@ public class OrgAApplication {
 
 
         String orgID = "orgA";
-        int minuteCount = 5;
+        int minuteCount = 1;
         int experimentLengthSeconds = 60 * minuteCount;
-        int runCount = 5;
+        int runCount = 2;
 
         List<String> pipelineNames = List.of(
-                "throughput/1ms_sleep_pipeline.json",
+                /*"throughput/1ms_sleep_pipeline.json",
                 "throughput/5ms_sleep_pipeline.json",
                 "throughput/05ms_sleep_pipeline.json",
                 "throughput/075ms_sleep_pipeline.json",
                 "alignment_pipeline.json",
-                "backpressure_pipeline.json"
+                "backpressure_pipeline.json",
+                "scalability_pipeline.json",*/
                 );
 
         runExperiments(pipelineNames,
@@ -63,10 +64,10 @@ public class OrgAApplication {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
         for (String pipelineName : pipelineNames) {
-            System.out.println("About to run " + runCount + " " + pipelineName + " experiments.");
+            System.out.println("\n\nAbout to run " + runCount + " " + pipelineName + " experiments.");
             int runs = pipelineName.equals("alignment_pipeline.json") ? 1 : runCount;
             for (int i = 0; i < runs; i++) {
-                Path pipelinePath = pipelineFolderPath.resolve(pipelineName + ".json");
+                Path pipelinePath = pipelineFolderPath.resolve(pipelineName);
                 String contents = retrieveContents(pipelinePath);
                 PipelineCandidate pipelineCandidate = new PipelineCandidate(contents, configURI);
                 ValidatedPipeline validatedPipeline = new ValidatedPipeline(pipelineCandidate);
@@ -75,20 +76,22 @@ public class OrgAApplication {
                 executionService.start(pipeline);
                 System.out.println("Experiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.");
 
-                try { Thread.sleep(experimentLengthSeconds); }
+                try { Thread.sleep(1000L * experimentLengthSeconds); }
                 catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
                 executionService.terminate(pipeline);
                 System.out.println("Finished experiment (" + pipelineName + "), run " + (i + 1) + ".");
                 cleanExperiment();
             }
-            System.out.println("Concluded running " + runCount + " " + pipelineName + " experiments.\n");
+            System.out.println("\n\nConcluded running " + runCount + " " + pipelineName + " experiments.");
         }
+        System.out.println("\n\nFinished running all experiments.");
+        System.exit(0);
     }
 
     private static void cleanExperiment() {
         System.gc();
-        try { Thread.sleep(1000); }
+        try { Thread.sleep(1000L); }
         catch (InterruptedException e) { Thread.currentThread().interrupt(); }
     }
 

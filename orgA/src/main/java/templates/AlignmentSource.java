@@ -17,7 +17,7 @@ public class AlignmentSource extends SimpleSource<Event> {
         super(configuration);
         this.messageCap = (int) configuration.get("message_send_count");
 
-        String savePath = "experiment_results/alignment/" + configuration.get("save_file").toString();
+        String savePath = "experiment_results/vm/alignment/" + configuration.get("save_file").toString();
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
@@ -27,11 +27,12 @@ public class AlignmentSource extends SimpleSource<Event> {
 
         counter++;
         if (counter > messageCap) { // stop operation to allow sink to catch up
-            System.out.println("AlignmentSource finished. Terminating.");
-            terminate();
+            System.out.println("AlignmentSource finished. sleeping.\n");
+            try { Thread.sleep(10000); }
+            catch (Exception e) { System.out.println(this.getClass().getSimpleName() + " woke up."); }
+        } else {
+            logger.log(String.valueOf(counter));
         }
-
-        logger.log(String.valueOf(counter));
 
         return new Event(
                 "alignment",

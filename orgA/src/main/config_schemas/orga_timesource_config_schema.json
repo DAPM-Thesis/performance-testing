@@ -1,8 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.dapm.org/config/orga_timesource_config_schema.json",
-  "title": "orgA TimeSource Config",
+  "$id": "https://www.dapm.org/config/orgb_timesource_config_schema.json",
+  "title": "orgB TimeSource Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "sleep_freq": {"type": "integer", "minimum": 1},
+    "sleep_time_ms": {"type": "integer", "minimum": 1}
+  },
+  "required": ["sleep_freq", "sleep_time_ms"],
   "additionalProperties": false
 }

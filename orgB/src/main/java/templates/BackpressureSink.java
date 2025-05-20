@@ -25,9 +25,9 @@ public class BackpressureSink extends Sink {
     public BackpressureSink(Configuration configuration) {
         super(configuration);
 
-        String sharedSavePath = "experiment_results/backpressure/" + configuration.get("shared_save_file").toString();
+        String sharedSavePath = "experiment_results/vm/backpressure/" + configuration.get("shared_save_file").toString();
         this.sharedLogger = new ExperimentLogger(Paths.get(sharedSavePath).toAbsolutePath());
-        this.sleepTimeMs = 1000 * (long) configuration.get("lag_seconds");
+        this.sleepTimeMs = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
 
         // add counter that can see how many messages were sent before it caught up.
 
@@ -50,7 +50,7 @@ public class BackpressureSink extends Sink {
         Instant received = Instant.now();
         long latencyMs = Duration.between(sent, received).toMillis();
         if (latencyMs <= meanLatencyMs_1MsSleep && !caughtUp) {
-            String output = "Sink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
+            String output = "BackpressureSink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
             sharedLogger.log(output);
             System.out.println(output);
             caughtUp = true;

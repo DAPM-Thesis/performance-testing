@@ -13,35 +13,22 @@ import java.time.Instant;
 import java.util.Map;
 
 public class TimeSink extends Sink {
-    private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/scalability/experiment_1.txt"
-    ).toAbsolutePath());
-    private boolean hasStarted = false;
-    private Instant deadline;
-    private long experimentLengthSeconds = 60 * 5;
+    private final ExperimentLogger logger;
 
     public TimeSink(Configuration configuration) {
         super(configuration);
+
+        String savePath = "experiment_results/virtual_machine/scalability/" + configuration.get("save_file").toString();
+        this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
     @Override
     public void observe(Pair<Message, Integer> messageAndPort) {
-        if (!hasStarted) {
-            hasStarted = true;
-            deadline = Instant.now().plusSeconds(experimentLengthSeconds);
-            System.out.println("Sink started. Stopping after " + experimentLengthSeconds + " seconds.");
-        }
         Instant receivedTime = Instant.now();
         Instant sentTime = ((UTCTime) messageAndPort.first()).getTime();
         long latencyNs = Duration.between(sentTime, receivedTime).toNanos();
         String logInfo = String.valueOf(messageAndPort.second()) + ':' + latencyNs;
         logger.log(logInfo);
-
-        if (receivedTime.isAfter(deadline)) {
-            System.out.println("Finished experiment after " + experimentLengthSeconds + " seconds.");
-            System.out.println("Shutting down.");
-            System.exit(0);
-        }
     }
 
     @Override

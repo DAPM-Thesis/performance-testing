@@ -50,22 +50,19 @@ public class ExperimentLogger {
         java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
         java.util.regex.Matcher matcher = pattern.matcher(namePart);
 
-        String baseName = namePart;
-        int counter = 1;
-
+        String baseName;
+        int counter;
         if (matcher.matches()) {
             baseName = matcher.group(1);
             counter = Integer.parseInt(matcher.group(2));
+        } else {
+            baseName = namePart;
+            counter = 1;
         }
 
         Path candidate;
         while (true) {
-            String candidateName;
-            if (Files.notExists(inputPath)) {
-                return inputPath;
-            }
-            // Construct candidate with incremented number
-            candidateName = baseName + "_" + counter + extPart;
+            String candidateName = baseName + "_" + counter + extPart;
             candidate = parent == null ? Path.of(candidateName) : parent.resolve(candidateName);
             if (Files.notExists(candidate)) {
                 return candidate;
@@ -73,4 +70,5 @@ public class ExperimentLogger {
             counter++;
         }
     }
+
 }

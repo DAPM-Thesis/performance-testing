@@ -18,20 +18,22 @@ public class AlignmentSink extends Sink {
         super(configuration);
 
         this.messageCap = (int) configuration.get("message_send_count");
-        String savePath = "experiment_results/alignment/" + configuration.get("save_file").toString();
+        String savePath = "experiment_results/vm/alignment/" + configuration.get("save_file").toString();
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
     @Override
     public void observe(Pair<Message, Integer> messageAndPort) {
         String activity = ((Event) messageAndPort.first()).getActivity();
-        logger.log(activity);
         int count = Integer.parseInt(activity);
         maybeSendUserOutput(count);
 
-        if (count >= messageCap) {
-            System.out.println("AlignmentSink finished.\nTerminating. Last received number: " + count + '.');
-            terminate();
+        if (count > messageCap) {
+            System.out.println("AlignmentSink finished. Sleeping.\n");
+            try {Thread.sleep(10000);}
+            catch (Exception e) { System.out.println(this.getClass().getSimpleName() + " woke up."); }
+        } else {
+            logger.log(activity);
         }
     }
 

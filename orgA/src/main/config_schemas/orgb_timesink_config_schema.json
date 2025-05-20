@@ -3,6 +3,9 @@
   "$id": "https://www.dapm.org/config/orgb_timesink_config_schema.json",
   "title": "orgB TimeSink Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "save_file": { "type": "string", "pattern": "^[^/\\\\]*$"}
+  },
+  "required": ["save_file"],
   "additionalProperties": false
 }

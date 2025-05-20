@@ -14,7 +14,7 @@ public class ThroughputSource extends SimpleSource<UTCTime> {
         super(configuration);
 
         Object sleepMs = configuration.get("sleep_ms");
-        this.sleepTime = (sleepMs instanceof Double) ? 1 : (long) sleepMs;
+        this.sleepTime = (sleepMs instanceof Double) ? 1L : ((Integer) sleepMs).longValue();
         this.sleepFrequency = 1;
         if (sleepMs instanceof Double d) {
             this.sleepFrequency = (Math.abs(d - 0.75) < 0.01) ? 4 : 2;
