@@ -3,6 +3,14 @@
   "$id": "https://www.dapm.org/config/orga_throughputsource_config_schema.json",
   "title": "orgA ThroughputSource Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "sleep_ms": {
+      "anyOf": [
+        { "enum": [0.5, 0.75] },
+        { "type": "integer", "minimum": 1}
+      ]
+
+    }
+  },
   "additionalProperties": false
 }

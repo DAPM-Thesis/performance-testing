@@ -1,6 +1,6 @@
 {
   "processing elements":[
-    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 1} },
     { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "ThroughputSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {} }
   ],
 

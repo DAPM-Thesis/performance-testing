@@ -3,7 +3,9 @@ package templates;
 import communication.message.Message;
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.Sink;
+import utils.Pair;
 
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -24,8 +26,12 @@ public class BackpressureSink extends Sink {
             "experiment_results/backpressure/latency_of_experiment_2.txt"
     ).toAbsolutePath());
 
+    public BackpressureSink(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
-    public void observe(Message message, int i) {
+    public void observe(Pair<Message,Integer> messageAndPort) {
         if (shouldSleep) {
             try { Thread.sleep(sleepTimeMs); } catch (InterruptedException e) { throw new RuntimeException(e); }
             shouldSleep = false;
@@ -33,7 +39,7 @@ public class BackpressureSink extends Sink {
             System.out.println("Sink started processing at UTC: " + Instant.now());
         }
 
-        Instant sent = ((UTCTime) message).getTime();
+        Instant sent = ((UTCTime) messageAndPort.first()).getTime();
         Instant received = Instant.now();
         long latencyMs = Duration.between(sent, received).toMillis();
         if (messageCounter++ % 2500 == 0) {

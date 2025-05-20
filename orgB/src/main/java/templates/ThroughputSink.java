@@ -3,7 +3,9 @@ package templates;
 import communication.message.Message;
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.Sink;
+import utils.Pair;
 
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -20,8 +22,12 @@ public class ThroughputSink extends Sink {
     private final int experimentLengthSeconds = 60 * 5;
     private int counter = 0;
 
+    public ThroughputSink(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
-    public void observe(Message message, int i) {
+    public void observe(Pair<Message, Integer> messageAndPort) {
         if (firstReceivedTime == null) {
             System.out.println("Received first message.");
             firstReceivedTime = Instant.now();
@@ -31,7 +37,7 @@ public class ThroughputSink extends Sink {
         Instant receivedTime = Instant.now();
         counter++;
         if (counter % 10000 == 0) {
-            Instant sentTime = ((UTCTime) message).getTime();
+            Instant sentTime = ((UTCTime) messageAndPort.first()).getTime();
             Duration elapsedTime = Duration.between(sentTime, receivedTime);
             long elapsedNanoseconds = elapsedTime.toNanos();
             logger.log(Long.toString(elapsedNanoseconds));

@@ -3,7 +3,9 @@ package templates;
 import communication.message.Message;
 import communication.message.impl.event.Event;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.Sink;
+import utils.Pair;
 
 import java.nio.file.Paths;
 import java.util.Map;
@@ -13,9 +15,13 @@ public class AlignmentSink extends Sink {
             "experiment_results/alignment/TEMP_DELETE.txt"
     ).toAbsolutePath());
 
+    public AlignmentSink(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
-    public void observe(Message message, int i) {
-        String activity = ((Event) message).getActivity();
+    public void observe(Pair<Message, Integer> messageAndPort) {
+        String activity = ((Event) messageAndPort.first()).getActivity();
         logger.log(activity);
 
         int count = Integer.parseInt(activity);

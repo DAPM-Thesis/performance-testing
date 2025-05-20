@@ -2,6 +2,7 @@ package templates;
 
 import communication.message.impl.event.Event;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
 import java.nio.file.Paths;
@@ -13,6 +14,11 @@ public class AlignmentSource extends SimpleSource<Event> {
     private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
             "experiment_results/alignment/source_experiment_2.txt"
     ).toAbsolutePath());
+
+    public AlignmentSource(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
     public Event process() {
         if (counter == 0) { System.out.println("Source Started. Message cap: " + messageCap + '.'); }

@@ -1,10 +1,16 @@
 package templates;
 
 import communication.message.impl.time.UTCTime;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
 public class TimeSource extends SimpleSource<UTCTime> {
     int counter = 0;
+
+    public TimeSource(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
     public UTCTime process() {
         counter++;

@@ -1,11 +1,17 @@
 package templates;
 
 import communication.message.impl.time.UTCTime;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
 public class LoggingOverheadSource extends SimpleSource<UTCTime> {
     private int counter = 0;
     private final int messageCap = 500000;
+
+    public LoggingOverheadSource(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
     public UTCTime process() {
         if (counter == 0) { System.out.println("Source Started."); }

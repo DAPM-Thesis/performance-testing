@@ -2,6 +2,7 @@ package templates;
 
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
 import java.nio.file.Paths;
@@ -15,6 +16,10 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
     private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
             "experiment_results/backpressure/experiment_2.txt"
     ).toAbsolutePath());
+
+    public BackpressureSource(Configuration configuration) {
+        super(configuration);
+    }
 
     @Override
     public UTCTime process() {

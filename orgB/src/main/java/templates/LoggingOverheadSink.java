@@ -3,7 +3,9 @@ package templates;
 import communication.message.Message;
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
+import pipeline.processingelement.Configuration;
 import pipeline.processingelement.Sink;
+import utils.Pair;
 
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -21,8 +23,12 @@ public class LoggingOverheadSink extends Sink {
     ).toAbsolutePath());
     Instant startTime;
 
+    public LoggingOverheadSink(Configuration configuration) {
+        super(configuration);
+    }
+
     @Override
-    public void observe(Message message, int i) {
+    public void observe(Pair<Message,Integer> messageAndPort) {
         if (counter == 0) {
             startTime = Instant.now();
             System.out.println("Sink Started.");
