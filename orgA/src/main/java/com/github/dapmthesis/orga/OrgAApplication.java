@@ -31,19 +31,27 @@ public class OrgAApplication {
         ConfigurableApplicationContext context = SpringApplication.run(OrgAApplication.class, args);
         PipelineBuilder pipelineBuilder = context.getBean(PipelineBuilder.class);
         PipelineExecutionService executionService = context.getBean(PipelineExecutionService.class);
-
         TemplateRepository templateRepository = context.getBean(TemplateRepository.class);
         storeTemplates(templateRepository);
 
+
         String orgID = "orgA";
-        Path pipelineFolderPath = Paths.get(orgID + "/src/main/representations");
-        URI configURI = Paths.get(orgID + "/src/main/config_schemas").toUri();
-
-        int minuteCount = 1;
+        int minuteCount = 5;
         int experimentLengthSeconds = 60 * minuteCount;
-        List<String> pipelineNames = List.of("throughput_pipeline");
 
-        runExperiments(pipelineNames, experimentLengthSeconds, orgID, pipelineFolderPath, configURI, pipelineBuilder, executionService);
+        List<String> pipelineNames = List.of(
+                "throughput/1ms_sleep_pipeline.json",
+                "throughput/5ms_sleep_pipeline.json",
+                "throughput/05ms_sleep_pipeline.json",
+                "throughput/075ms_sleep_pipeline.json");
+
+        runExperiments(pipelineNames,
+                experimentLengthSeconds,
+                orgID,
+                Paths.get(orgID + "/src/main/representations"),
+                Paths.get(orgID + "/src/main/config_schemas").toUri(),
+                pipelineBuilder,
+                executionService);
     }
 
     private static void runExperiments(List<String> pipelineNames, int experimentLengthSeconds, String organizationID, Path pipelineFolderPath, URI configURI, PipelineBuilder pipelineBuilder, PipelineExecutionService executionService) {

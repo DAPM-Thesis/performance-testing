@@ -3,6 +3,10 @@
   "$id": "https://www.dapm.org/config/orgb_throughputsink_config_schema.json",
   "title": "orgB ThroughputSink Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "save_file": { "type": "string", "pattern": "^[^/\\\\]*$" },
+    "log_frequency": { "type": "integer", "minimum": 1 }
+  },
+  "required": ["save_file"],
   "additionalProperties": false
 }
