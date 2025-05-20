@@ -36,18 +36,25 @@ public class OrgAApplication {
 
 
         String orgID = "orgA";
-        int minuteCount = 1;
+        int minuteCount = 5;
         int experimentLengthSeconds = 60 * minuteCount;
-        int runCount = 2;
+        int runCount = 3;
 
         List<String> pipelineNames = List.of(
-                /*"throughput/1ms_sleep_pipeline.json",
+                "throughput/1ms_sleep_pipeline.json",
                 "throughput/5ms_sleep_pipeline.json",
                 "throughput/05ms_sleep_pipeline.json",
                 "throughput/075ms_sleep_pipeline.json",
                 "alignment_pipeline.json",
                 "backpressure_pipeline.json",
-                "scalability_pipeline.json",*/
+                "scalability_pipeline.json",
+                "kafka_overhead/2_pipeline.json",
+                "kafka_overhead/4_pipeline.json",
+                "kafka_overhead/8_pipeline.json",
+                "kafka_overhead/12_pipeline.json",
+                "kafka_overhead/16_pipeline.json",
+                "logging_overhead/log_pipeline.json",
+                "logging_overhead/no_log_pipeline.json"
                 );
 
         runExperiments(pipelineNames,

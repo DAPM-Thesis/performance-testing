@@ -3,6 +3,9 @@
   "$id": "https://www.dapm.org/config/orga_loggingoverheadsource_config_schema.json",
   "title": "OrgA LoggingOverheadSource Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "n_messages": {"type": "integer", "minimum": 1}
+  },
+  "required": ["n_messages"],
   "additionalProperties": false
 }

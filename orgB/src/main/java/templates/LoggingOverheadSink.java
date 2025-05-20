@@ -14,17 +14,26 @@ import java.util.Map;
 
 public class LoggingOverheadSink extends Sink {
     private int counter = 0;
-    private final int messageCap = 500000;
-    private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/logging_overhead/experiment_1.txt"
-    ).toAbsolutePath());
-    private final ExperimentLogger overheadLogger = new ExperimentLogger(Paths.get(
-            "experiment_results/logging_overhead/logged_count_for_experiment_1.txt"
-    ).toAbsolutePath());
+    private final int messageCap;
+    private final ExperimentLogger logger;
+    private final ExperimentLogger finalTimeLogger;
     Instant startTime;
 
     public LoggingOverheadSink(Configuration configuration) {
         super(configuration);
+
+        this.messageCap = (int) configuration.get("n_messages");
+
+        String finalTimePath = "experiment_results/virtual_machine/logging_overhead/" + configuration.get("final_time_file").toString();
+        this.finalTimeLogger = new ExperimentLogger(Paths.get(finalTimePath).toAbsolutePath());
+
+        Object logFilename = configuration.get("log_file");
+        if (logFilename != null) {
+            String logPath = "experiment_results/virtual_machine/logging_overhead/" + logFilename;
+            this.logger = new ExperimentLogger(Paths.get(logPath).toAbsolutePath());
+        } else {
+            this.logger = null;
+        }
     }
 
     @Override
@@ -35,15 +44,19 @@ public class LoggingOverheadSink extends Sink {
         }
 
         counter++;
-        if (counter % 10000 == 0) { System.out.println("Sink processed " + counter + " messages."); }
+        if (counter % 100000 == 0) { System.out.println("Sink processed " + counter + " messages."); }
 
-        overheadLogger.log(String.valueOf(counter));
+        if (logger != null && counter <= messageCap) { logger.log(String.valueOf(counter)); }
         if (counter == messageCap) {
             long processingTime = Duration.between(startTime, Instant.now()).toMillis();
-            String logMessage = "With logging every message: processed " + messageCap + " messages in " + processingTime + " ms";
-            logger.log(logMessage);
-            System.out.println("Sink finished processing all messages.");
-            System.exit(0);
+            String messageStart = (logger == null) ? "Without logging" : "Logging every message";
+            String logMessage = messageStart + ": processed " + messageCap + " messages in " + processingTime + " ms";
+            finalTimeLogger.log(logMessage);
+            System.out.println("LoggingOverheadSink finished processing all messages.");
+
+        } else if (counter > messageCap) {
+            try { Thread.sleep(5000); }
+            catch (Exception e) {System.out.println("LoggingOverheadSink Woke up.");}
         }
     }
 

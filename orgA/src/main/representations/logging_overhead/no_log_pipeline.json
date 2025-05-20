@@ -1,0 +1,18 @@
+{
+  "processing elements":[
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "LoggingOverheadSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "n_messages": 500000 } },
+    { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "no_log_final.txt", "n_messages": 500000 } }
+  ],
+
+  "channels": [
+    {
+      "publisher": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "LoggingOverheadSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "n_messages": 500000 } },
+      "subscribers": [
+        {
+          "processing element": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "no_log_final.txt", "n_messages": 500000 } },
+          "portNumber": 1
+        }
+      ]
+    }
+  ]
+}

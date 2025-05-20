@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.dapm.org/config/orgb_timesink_config_schema.json",
+  "title": "orgB TimeSink Config",
+  "type": "object",
+  "properties": {
+    "save_file": { "type": "string", "pattern": "^[^/\\\\]*$"}
+  },
+  "required": ["save_file"],
+  "additionalProperties": false
+}

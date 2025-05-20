@@ -25,7 +25,7 @@ public class BackpressureSink extends Sink {
     public BackpressureSink(Configuration configuration) {
         super(configuration);
 
-        String sharedSavePath = "experiment_results/vm/backpressure/" + configuration.get("shared_save_file").toString();
+        String sharedSavePath = "experiment_results/virtual_machine/backpressure/" + configuration.get("shared_save_file").toString();
         this.sharedLogger = new ExperimentLogger(Paths.get(sharedSavePath).toAbsolutePath());
         this.sleepTimeMs = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
 

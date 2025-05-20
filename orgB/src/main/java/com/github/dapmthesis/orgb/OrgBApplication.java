@@ -28,6 +28,7 @@ public class OrgBApplication {
         templateRepository.storeTemplate("BackpressureSink", templates.BackpressureSink.class);
         templateRepository.storeTemplate("ThroughputSink", templates.ThroughputSink.class);
         templateRepository.storeTemplate("AlignmentSink", templates.AlignmentSink.class);
+        templateRepository.storeTemplate("KafkaOverheadSink", templates.KafkaOverheadSink.class);
     }
 
 }
