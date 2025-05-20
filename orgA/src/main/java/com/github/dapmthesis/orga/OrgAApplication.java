@@ -38,6 +38,7 @@ public class OrgAApplication {
         String orgID = "orgA";
         int minuteCount = 5;
         int experimentLengthSeconds = 60 * minuteCount;
+        int runCount = 5;
 
         List<String> pipelineNames = List.of(
                 "throughput/1ms_sleep_pipeline.json",
@@ -50,31 +51,37 @@ public class OrgAApplication {
         runExperiments(pipelineNames,
                 experimentLengthSeconds,
                 orgID,
+                runCount,
                 Paths.get(orgID + "/src/main/representations"),
                 Paths.get(orgID + "/src/main/config_schemas").toUri(),
                 pipelineBuilder,
                 executionService);
     }
 
-    private static void runExperiments(List<String> pipelineNames, int experimentLengthSeconds, String organizationID, Path pipelineFolderPath, URI configURI, PipelineBuilder pipelineBuilder, PipelineExecutionService executionService) {
+    private static void runExperiments(List<String> pipelineNames, int experimentLengthSeconds, String organizationID, int runCount, Path pipelineFolderPath, URI configURI, PipelineBuilder pipelineBuilder, PipelineExecutionService executionService) {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
         for (String pipelineName : pipelineNames) {
-            Path pipelinePath = pipelineFolderPath.resolve(pipelineName + ".json");
-            String contents = retrieveContents(pipelinePath);
-            PipelineCandidate pipelineCandidate = new PipelineCandidate(contents, configURI);
-            ValidatedPipeline validatedPipeline = new ValidatedPipeline(pipelineCandidate);
+            System.out.println("About to run " + runCount + " " + pipelineName + " experiments.");
+            int runs = pipelineName.equals("alignment_pipeline.json") ? 1 : runCount;
+            for (int i = 0; i < runs; i++) {
+                Path pipelinePath = pipelineFolderPath.resolve(pipelineName + ".json");
+                String contents = retrieveContents(pipelinePath);
+                PipelineCandidate pipelineCandidate = new PipelineCandidate(contents, configURI);
+                ValidatedPipeline validatedPipeline = new ValidatedPipeline(pipelineCandidate);
 
-            Pipeline pipeline =  pipelineBuilder.buildPipeline(organizationID, validatedPipeline);
-            executionService.start(pipeline);
-            System.out.println("Experiment started. Running for " + experimentLengthSeconds + " seconds.");
+                Pipeline pipeline =  pipelineBuilder.buildPipeline(organizationID, validatedPipeline);
+                executionService.start(pipeline);
+                System.out.println("Experiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.");
 
-            try { Thread.sleep(experimentLengthSeconds); }
-            catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+                try { Thread.sleep(experimentLengthSeconds); }
+                catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-            executionService.terminate(pipeline);
-            System.out.println("Finished experiment.");
-            cleanExperiment();
+                executionService.terminate(pipeline);
+                System.out.println("Finished experiment (" + pipelineName + "), run " + (i + 1) + ".");
+                cleanExperiment();
+            }
+            System.out.println("Concluded running " + runCount + " " + pipelineName + " experiments.\n");
         }
     }
 

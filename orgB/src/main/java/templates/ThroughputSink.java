@@ -23,7 +23,7 @@ public class ThroughputSink extends Sink {
         String savePath = "experiment_results/throughput/" + configuration.get("save_file").toString();
         Object logFrequency = configuration.get("log_frequency");
 
-        this.logger = new ExperimentLogger(Paths.get(saveFile).toAbsolutePath());
+        this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
         this.logFrequency = logFrequency == null ? 1 : (int) logFrequency;
     }
 
