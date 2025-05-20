@@ -10,33 +10,36 @@ import java.time.Instant;
 
 public class BackpressureSource extends SimpleSource<UTCTime> {
     private int counter = 0;
-    private long secondsBeforeSleep = 20;
+    private final long headStartSeconds;
     private boolean startedSleeping = false;
     Instant sleepStart;
-    private final ExperimentLogger logger = new ExperimentLogger(Paths.get(
-            "experiment_results/backpressure/experiment_2.txt"
-    ).toAbsolutePath());
+    private final ExperimentLogger logger;
 
     public BackpressureSource(Configuration configuration) {
         super(configuration);
+        this.headStartSeconds = (long) configuration.get("head_start_seconds");
+
+        String sharedSavePath = "experiment_results/backpressure/" + configuration.get("shared_save_file").toString();
+        this.logger = new ExperimentLogger(Paths.get(sharedSavePath).toAbsolutePath());
     }
 
     @Override
     public UTCTime process() {
         if (counter == 0) {
-            System.out.println("Source Started. No sleep yet.");
-            sleepStart = Instant.now().plusSeconds(secondsBeforeSleep);
+            System.out.println("BackpressureSource Started. No sleep yet.");
+            sleepStart = Instant.now().plusSeconds(headStartSeconds);
         }
 
         counter++;
         if (Instant.now().isAfter(sleepStart)) {
             if (!startedSleeping) {
                 startedSleeping = true;
-                logger.log("Source sent " + String.valueOf(counter-1) + " messages in 20 seconds.");
+                logger.log("Source sent " + (counter-1) + " messages in " + headStartSeconds + " seconds.");
                 logger.log("Source started 1 ms sleep at UTC: " + Instant.now());
-                System.out.println("Source will start sleeping 1 ms now.");
+                System.out.println("BackpressureSource will start sleeping 1 ms now.");
             }
-            try { Thread.sleep(1); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(1); }
+            catch (InterruptedException e) { System.out.println("Source woke up from sleep."); }
         }
         return new UTCTime();
     }

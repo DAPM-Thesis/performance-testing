@@ -17,38 +17,43 @@ public class BackpressureSink extends Sink {
     private long sleepTimeMs = 20 * 1000;
     private long meanLatencyMs_1MsSleep = 45;
     private int messageCounter = 0;
+    private boolean caughtUp = false;
 
-    private final ExperimentLogger sharedLogger = new ExperimentLogger(Paths.get(
-            "experiment_results/backpressure/experiment_2.txt"
-    ).toAbsolutePath());
+    private final ExperimentLogger sharedLogger;
 
-    private final ExperimentLogger latencyLogger = new ExperimentLogger(Paths.get(
-            "experiment_results/backpressure/latency_of_experiment_2.txt"
-    ).toAbsolutePath());
 
     public BackpressureSink(Configuration configuration) {
         super(configuration);
+
+        String sharedSavePath = "experiment_results/backpressure/" + configuration.get("shared_save_file").toString();
+        this.sharedLogger = new ExperimentLogger(Paths.get(sharedSavePath).toAbsolutePath());
+        this.sleepTimeMs = 1000 * (long) configuration.get("lag_seconds");
+
+        // add counter that can see how many messages were sent before it caught up.
+
     }
 
     @Override
     public void observe(Pair<Message,Integer> messageAndPort) {
         if (shouldSleep) {
-            try { Thread.sleep(sleepTimeMs); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(sleepTimeMs); }
+            catch (InterruptedException e) { throw new RuntimeException(e); }
             shouldSleep = false;
-            sharedLogger.log("Sink started processing at UTC: " + Instant.now());
-            System.out.println("Sink started processing at UTC: " + Instant.now());
+            String output = "BackpressureSink started processing at UTC: " + Instant.now();
+            sharedLogger.log(output);
+            System.out.println(output);
         }
+
+        messageCounter++;
 
         Instant sent = ((UTCTime) messageAndPort.first()).getTime();
         Instant received = Instant.now();
         long latencyMs = Duration.between(sent, received).toMillis();
-        if (messageCounter++ % 2500 == 0) {
-            latencyLogger.log(Long.toString(latencyMs));
-        }
-        if (latencyMs <= meanLatencyMs_1MsSleep) {
-            sharedLogger.log("Sink caught up at UTC: " + Instant.now());
-            System.out.println("Sink caught up at UTC: " + Instant.now());
-            System.exit(0);
+        if (latencyMs <= meanLatencyMs_1MsSleep && !caughtUp) {
+            String output = "Sink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
+            sharedLogger.log(output);
+            System.out.println(output);
+            caughtUp = true;
         }
     }
 

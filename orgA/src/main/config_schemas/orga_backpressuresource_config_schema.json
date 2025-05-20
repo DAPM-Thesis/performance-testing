@@ -3,6 +3,10 @@
   "$id": "https://www.dapm.org/config/orga_backpressuresource_config_schema.json",
   "title": "orgA BackpressureSource Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "head_start_seconds": { "type": "integer", "minimum": 1},
+    "shared_save_file": { "type": "string", "pattern": "^[^/\\\\]*$"}
+  },
+  "required": ["head_start_seconds", "shared_save_file"],
   "additionalProperties": false
 }

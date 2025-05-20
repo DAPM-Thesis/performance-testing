@@ -3,6 +3,10 @@
   "$id": "https://www.dapm.org/config/orga_backpressuresink_config_schema.json",
   "title": "orgA BackpressureSink Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "lag_seconds": { "type": "integer", "minimum": 1 },
+    "shared_save_file": { "type": "string", "pattern": "^[^/\\\\]*$"}
+  },
+  "required": ["lag_seconds", "shared_save_file"],
   "additionalProperties": false
 }
