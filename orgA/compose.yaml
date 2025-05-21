@@ -35,4 +35,16 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-
+  orga-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: orga-app
+    networks:
+      - performance-testing-cluster
+    ports:
+      - "8082:8082"
+    environment:
+      - "organization.broker.port=130.225.70.67:9092"
+    depends_on:
+      - perf-A
