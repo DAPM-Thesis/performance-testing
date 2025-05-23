@@ -5,6 +5,7 @@ import experiment.ExperimentLogger;
 import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 
@@ -20,7 +21,9 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         this.headStartSeconds = ((Integer) configuration.get("head_start_seconds")).longValue();
 
         String sharedSavePath = "experiment_results/virtual_machine/backpressure/" + configuration.get("shared_save_file").toString();
-        this.logger = new ExperimentLogger(Paths.get(sharedSavePath).toAbsolutePath());
+        Path savePath = Paths.get(sharedSavePath).toAbsolutePath();
+        this.logger = new ExperimentLogger(savePath, true);
+        logger.log("--- EXPERIMENT ---");
     }
 
     @Override

@@ -51,7 +51,7 @@ public class BackpressureSink extends Sink {
         long latencyMs = Duration.between(sent, received).toMillis();
         if (latencyMs <= meanLatencyMs_1MsSleep && !caughtUp) {
             String output = "BackpressureSink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
-            sharedLogger.log(output);
+            sharedLogger.log(output + "\n");
             System.out.println(output);
             caughtUp = true;
         }
