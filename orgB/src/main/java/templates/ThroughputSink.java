@@ -24,18 +24,16 @@ public class ThroughputSink extends Sink {
         Object logFrequency = configuration.get("log_frequency");
 
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
-        this.logFrequency = logFrequency == null ? 1 : (int) logFrequency;
+        this.logFrequency = (logFrequency == null) ? 1 : (int) logFrequency;
     }
 
     @Override
     public void observe(Pair<Message, Integer> messageAndPort) {
         counter++;
         if (counter % logFrequency == 0) {
-            Instant receivedTime = Instant.now();
             Instant sentTime = ((UTCTime) messageAndPort.first()).getTime();
-            Duration elapsedTime = Duration.between(sentTime, receivedTime);
-            long elapsedNanoseconds = elapsedTime.toNanos();
-            logger.log(Long.toString(elapsedNanoseconds));
+            long latencyNs = Duration.between(sentTime, Instant.now()).toNanos();
+            logger.log(Long.toString(latencyNs/logFrequency));
         }
 
     }

@@ -7,17 +7,18 @@ import java.nio.file.Path;
 public class ExperimentLogger {
     private final Path logFilePath;
 
-    public ExperimentLogger(Path inputPath) {
-        this.logFilePath = resolveUniquePath(inputPath);
+    public ExperimentLogger(Path inputPath) { this(inputPath, false);}
+
+    public ExperimentLogger(Path inputPath, boolean shared) {
+        if (!shared) { this.logFilePath = resolveUniquePath(inputPath); }
+        else { this.logFilePath = inputPath; }
     }
 
     public void log(String string) {
         try {
             // Create the logFilePath if it doesn't exist
             Path parentDir = logFilePath.getParent();
-            if (parentDir != null) {
-                Files.createDirectories(parentDir);
-            }
+            if (parentDir != null) { Files.createDirectories(parentDir); }
 
             // Write/appends the input string as a new line
             Files.writeString(
@@ -45,7 +46,7 @@ public class ExperimentLogger {
             extPart = "";
         }
 
-        // Pattern: ends with _number
+        // Pattern: ends with _*number*
         String regex = "^(.*)_(\\d+)$";
         java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
         java.util.regex.Matcher matcher = pattern.matcher(namePart);

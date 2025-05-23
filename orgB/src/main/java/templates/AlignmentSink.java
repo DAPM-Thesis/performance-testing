@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class AlignmentSink extends Sink {
     private final int messageCap;
-    ExperimentLogger logger;
+    private final ExperimentLogger logger;
+    private boolean capReached = false;
 
     public AlignmentSink(Configuration configuration) {
         super(configuration);
@@ -29,7 +30,10 @@ public class AlignmentSink extends Sink {
         maybeSendUserOutput(count);
 
         if (count > messageCap) {
-            System.out.println("AlignmentSink finished. Sleeping.\n");
+            if (!capReached) {
+                System.out.println("AlignmentSink finished. Sleeping.\n");
+                capReached = true;
+            }
             try {Thread.sleep(10000);}
             catch (Exception e) { System.out.println(this.getClass().getSimpleName() + " woke up."); }
         } else {
@@ -39,7 +43,7 @@ public class AlignmentSink extends Sink {
 
     private void maybeSendUserOutput(int count) {
         if (count == 0) { System.out.println("Received first message."); }
-        else if (count % 1000 == 0) {
+        else if (count % 10000 == 0) {
             System.out.println("Received " + count + " messages.");
         }
     }

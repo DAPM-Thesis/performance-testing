@@ -6,8 +6,19 @@ public class SleepAssistant {
     private final long cycleLength;
     private final int sleepsPerCycle;
 
+    /** Enables sleeping for a given number of milliseconds in expectation over infinite maybeSleepCalls. Supported sleep times are 0.25, 0.33, 0.5, 0.75, and positive integers. */
     public SleepAssistant(double sleepTimeMs) {
-        if (Math.abs(0.5-sleepTimeMs) < 0.0001) {
+        if (Math.abs(0.25 - sleepTimeMs) < 0.0001) {
+            sleepTimeMS = 1;
+            cycleLength = 4;
+            sleepsPerCycle = 1;
+        }
+        else if (Math.abs(0.33 - sleepTimeMs) < 0.0001 || Math.abs(1.0/3.0 - sleepTimeMs) < 0.0001) {
+            sleepTimeMS = 1;
+            cycleLength = 3;
+            sleepsPerCycle = 1;
+        }
+        else if (Math.abs(0.5-sleepTimeMs) < 0.0001) {
             sleepTimeMS = 1;
             cycleLength = 2;
             sleepsPerCycle = 1;

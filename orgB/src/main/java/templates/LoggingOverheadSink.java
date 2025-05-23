@@ -38,27 +38,34 @@ public class LoggingOverheadSink extends Sink {
 
     @Override
     public void observe(Pair<Message,Integer> messageAndPort) {
-        if (counter == 0) {
+        counter++;
+
+        if (counter == 1) {
             startTime = Instant.now();
             System.out.println("Sink Started.");
         }
 
-        counter++;
         if (counter % 100000 == 0) { System.out.println("Sink processed " + counter + " messages."); }
 
-        if (logger != null && counter <= messageCap) { logger.log(String.valueOf(counter)); }
-        if (counter == messageCap) {
-            long processingTime = Duration.between(startTime, Instant.now()).toMillis();
-            String messageStart = (logger == null) ? "Without logging" : "Logging every message";
-            String logMessage = messageStart + ": processed " + messageCap + " messages in " + processingTime + " ms";
-            finalTimeLogger.log(logMessage);
-            System.out.println("LoggingOverheadSink finished processing all messages.");
-
-        } else if (counter > messageCap) {
+        if (counter <= messageCap) {
+            if (logger != null) { logger.log(String.valueOf(counter)); }
+            if (counter == messageCap) { recordFinalStatistics(); }
+        }
+        else {
             try { Thread.sleep(5000); }
-            catch (Exception e) {System.out.println("LoggingOverheadSink Woke up.");}
+            catch (InterruptedException e) { System.out.println("LoggingOverheadSink Woke up."); }
         }
     }
+
+    private void recordFinalStatistics() {
+        long processingTime = Duration.between(startTime, Instant.now()).toMillis();
+        String messageStart = (logger == null) ? "Without logging" : "Logging every message";
+        String logMessage = messageStart + ": processed " + messageCap + " messages in " + processingTime + " ms";
+
+        finalTimeLogger.log(logMessage);
+        System.out.println("LoggingOverheadSink finished processing all messages.");
+    }
+
 
     @Override
     protected Map<Class<? extends Message>, Integer> setConsumedInputs() {
