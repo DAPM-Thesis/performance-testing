@@ -19,7 +19,7 @@ public class AlignmentSink extends Sink {
         super(configuration);
 
         this.messageCap = (int) configuration.get("message_send_count");
-        String savePath = "experiment_results/virtual_machine/alignment/" + configuration.get("save_file").toString();
+        String savePath = "experiment_results/vms/alignment/" + configuration.get("save_file").toString();
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 

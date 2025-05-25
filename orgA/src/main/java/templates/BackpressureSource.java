@@ -20,7 +20,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         super(configuration);
         this.headStartSeconds = ((Integer) configuration.get("head_start_seconds")).longValue();
 
-        String sharedSavePath = "experiment_results/virtual_machine/backpressure/" + configuration.get("shared_save_file").toString();
+        String sharedSavePath = "experiment_results/vms/backpressure/" + configuration.get("shared_save_file").toString();
         Path savePath = Paths.get(sharedSavePath).toAbsolutePath();
         this.logger = new ExperimentLogger(savePath, true);
         logger.log("--- EXPERIMENT ---");
