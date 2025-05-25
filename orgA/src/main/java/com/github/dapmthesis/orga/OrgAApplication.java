@@ -69,6 +69,7 @@ public class OrgAApplication {
                 "logging_overhead/no_log_pipeline.json"
         );
         */
+        // TODO: make control experiment; static void main method without kafka
 
         runExperiments(pipelineNames,
                 experimentLengthSeconds,
