@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import pipeline.Pipeline;
 import pipeline.PipelineBuilder;
 import pipeline.service.PipelineExecutionService;
 import repository.TemplateRepository;
@@ -73,7 +72,6 @@ public class OrgAApplication {
 
         runExperiments(pipelineNames,
                 experimentLengthSeconds,
-                orgID,
                 runCount,
                 Paths.get(orgID + "/src/main/representations"),
                 Paths.get(orgID + "/src/main/config_schemas").toUri(),
@@ -81,7 +79,7 @@ public class OrgAApplication {
                 executionService);
     }
 
-    private static void runExperiments(List<String> pipelineNames, int experimentLengthSeconds, String organizationID, int runCount, Path pipelineFolderPath, URI configURI, PipelineBuilder pipelineBuilder, PipelineExecutionService executionService) {
+    private static void runExperiments(List<String> pipelineNames, int experimentLengthSeconds, int runCount, Path pipelineFolderPath, URI configURI, PipelineBuilder pipelineBuilder, PipelineExecutionService executionService) {
 
         for (String pipelineName : pipelineNames) {
             System.out.println("\n\nAbout to run " + runCount + " " + pipelineName + " experiments.\n\n");
@@ -92,14 +90,14 @@ public class OrgAApplication {
                 PipelineCandidate pipelineCandidate = new PipelineCandidate(contents, configURI);
                 ValidatedPipeline validatedPipeline = new ValidatedPipeline(pipelineCandidate);
 
-                Pipeline pipeline =  pipelineBuilder.buildPipeline(organizationID, validatedPipeline);
-                executionService.start(pipeline);
+                pipelineBuilder.buildPipeline(pipelineName, validatedPipeline);
+                executionService.start(pipelineName);
                 System.out.println("Experiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.");
 
                 try { Thread.sleep(1000L * experimentLengthSeconds); }
                 catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-                executionService.terminate(pipeline);
+                executionService.terminate(pipelineName);
                 System.out.println("\n\nFinished experiment (" + pipelineName + "), run " + (i + 1) + ".\n\n");
                 cleanExperiment();
             }
