@@ -11,6 +11,6 @@
       ]
     }
   },
-  "required": ["sleep_freq", "sleep_time_ms"],
+  "required": ["sleep_ms"],
   "additionalProperties": false
 }

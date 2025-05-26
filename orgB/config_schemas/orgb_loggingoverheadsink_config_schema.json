@@ -3,6 +3,11 @@
   "$id": "https://www.dapm.org/config/orga_loggingoverheadsink_config_schema.json",
   "title": "OrgA LoggingOverheadSink Config",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "n_messages": {"type": "integer", "minimum": 1},
+    "final_time_file": { "type": "string", "pattern": "^[^/\\\\]*$" },
+    "log_file": { "type": "string", "pattern": "^[^/\\\\]*$" }
+  },
+  "required": ["n_messages", "final_time_file"],
   "additionalProperties": false
 }
