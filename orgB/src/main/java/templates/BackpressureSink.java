@@ -16,7 +16,7 @@ import java.util.Map;
 public class BackpressureSink extends Sink {
     private boolean shouldSleep = true;
     private final long sleepTimeMs;
-    private final long latency_threshold = 45;
+    private final long latencyThresholdMs;
     private int messageCounter = 0;
     private boolean caughtUp = false;
 
@@ -30,6 +30,15 @@ public class BackpressureSink extends Sink {
         Path sharedSavePath = Paths.get(sharedSavePathStr).toAbsolutePath();
         this.sharedLogger = new ExperimentLogger(sharedSavePath, true);
         this.sleepTimeMs = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
+
+        /*
+          latency_threshold is set based on the mean latency and variance of the 0.33 ms sleep throughput/latency
+          experiment results (3 runs):
+
+          adjusted mean latency : [4.50 2.25 4.83] ms
+          adjusted variance     : [562.76 119.81 663.17] ms
+        * */
+        latencyThresholdMs = (long) ((4.5+2.25+4.83)/3 + (562.76+119.81+663.17)/3);
     }
 
     @Override
@@ -49,7 +58,7 @@ public class BackpressureSink extends Sink {
         Instant timeSent = ((UTCTime) messageAndPort.first()).getTime();
         long latencyMs = Duration.between(timeSent, Instant.now()).toMillis();
 
-        if (latencyMs <= latency_threshold && !caughtUp) {
+        if (latencyMs <= latencyThresholdMs && !caughtUp) {
             caughtUp = true;
             String output = "BackpressureSink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
             sharedLogger.log(output + "\n");
