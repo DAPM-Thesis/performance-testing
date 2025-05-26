@@ -10,8 +10,9 @@ public class ThroughputSource extends SimpleSource<UTCTime> {
 
     public ThroughputSource(Configuration configuration) {
         super(configuration);
-        Object sleepMs = configuration.get("sleep_ms");
-        sleepAssistant = new SleepAssistant((double) sleepMs);
+        Object sleepMsRaw = configuration.get("sleep_ms");
+        double sleepMs = sleepMsRaw instanceof Integer ? ((Integer) sleepMsRaw).doubleValue() : (Double) sleepMsRaw;
+        sleepAssistant = new SleepAssistant(sleepMs);
 
         System.out.println("\nThroughputSource created with sleep time: " + sleepMs + " ms.");
     }

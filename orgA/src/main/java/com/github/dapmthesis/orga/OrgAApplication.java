@@ -37,9 +37,10 @@ public class OrgAApplication {
 
         // TODO: run throughput experiments and alignment experiment
         List<String> pipelineNames = List.of(
+                /*
                 "throughput/033ms_sleep_pipeline.json",
                 "throughput/05ms_sleep_pipeline.json",
-                "throughput/075ms_sleep_pipeline.json",
+                "throughput/075ms_sleep_pipeline.json", */
                 "throughput/1ms_sleep_pipeline.json",
 
                 "alignment_pipeline.json",
