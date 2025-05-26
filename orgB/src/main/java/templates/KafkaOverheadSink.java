@@ -20,7 +20,7 @@ public class KafkaOverheadSink extends Sink {
     public KafkaOverheadSink(Configuration configuration) {
         super(configuration);
 
-        String savePath = "experiment_results/virtual_machine/kafka_overhead/" + configuration.get("save_file").toString();
+        String savePath = "experiment_results/vms/kafka_overhead/" + configuration.get("save_file").toString();
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
 
         logFrequency = (int) configuration.get("log_frequency");

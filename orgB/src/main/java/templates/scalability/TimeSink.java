@@ -18,7 +18,7 @@ public class TimeSink extends Sink {
     public TimeSink(Configuration configuration) {
         super(configuration);
 
-        String savePath = "experiment_results/virtual_machine/scalability/" + configuration.get("save_file").toString();
+        String savePath = "experiment_results/vms/scalability/" + configuration.get("save_file").toString();
         this.logger = new ExperimentLogger(Paths.get(savePath).toAbsolutePath());
     }
 
