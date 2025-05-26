@@ -2,6 +2,7 @@ package templates;
 
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
+import experiment.SleepAssistant;
 import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
@@ -15,6 +16,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
     private boolean startedSleeping = false;
     Instant sleepStart;
     private final ExperimentLogger logger;
+    private final SleepAssistant sleepAssistant;
 
     public BackpressureSource(Configuration configuration) {
         super(configuration);
@@ -24,6 +26,8 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         Path savePath = Paths.get(sharedSavePath).toAbsolutePath();
         this.logger = new ExperimentLogger(savePath, true);
         logger.log("--- EXPERIMENT ---");
+
+        sleepAssistant = new SleepAssistant(0.33);
     }
 
     @Override
@@ -41,8 +45,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
                 logger.log("Source started 1 ms sleep at UTC: " + Instant.now());
                 System.out.println("BackpressureSource will start sleeping 1 ms now.");
             }
-            try { Thread.sleep(1); }
-            catch (InterruptedException e) { System.out.println("Source woke up from sleep."); }
+            sleepAssistant.maybeSleep();
         }
         return new UTCTime();
     }

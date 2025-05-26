@@ -36,9 +36,9 @@ public class OrgAApplication {
         int runCount = 3;
 
         // TODO: run throughput experiments and alignment experiment
+        /*
         List<String> pipelineNames = List.of(
-                "throughput/025ms_sleep_pipeline.json"
-                /*
+                "throughput/025ms_sleep_pipeline.json",
                 "throughput/033ms_sleep_pipeline.json",
                 "throughput/05ms_sleep_pipeline.json",
                 "throughput/075ms_sleep_pipeline.json",
@@ -46,18 +46,19 @@ public class OrgAApplication {
 
                 "alignment_pipeline.json",
 
-                "throughput/5ms_sleep_pipeline.json"*/
+                "throughput/5ms_sleep_pipeline.json"
         );
+        */
 
         // TODO: Do statistics and take note of the throughput threshold. If it is not reached, make a 0.25 ms sleep experiment.
             // TODO: start by checking 0.33 ms sleep pipeline
             // TODO: At this stage, don't worry about formatting the output yet; Do that while the next experiment is running. Just see if the experiments are stable or not, and sanity check that everyone above the first stable experiment is stable too.
         // TODO: Adjust sleep_ms in kafka_overhead to be slightly above the threshold, but still quite low.
-            // TODO: Adjust in all pipelines both source:  "configuration": {"sleep_ms": 0.75}   and    sink:  "configuration": {"save_file": "2_elem_075_ms_sleep.txt", "log_frequency": 10000 }
+            // TODO: Adjust in all pipelines both source:  "configuration": {"sleep_ms": 0.33}   and    sink:  "configuration": {"save_file": "2_elem_075_ms_sleep.txt", "log_frequency": 10000 }
         // TODO: Update the backpressure sleep time to be 1 sleep "step" above the lowest sleep stable sleep time from the throughput experiments
         // TODO: Update the backpressure mean_sleep threshold in the sink to be adjusted_mean + adjusted_variance for the sleep time used above
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
-        /*
+
         List<String> pipelineNames = List.of(
                 "backpressure_pipeline.json",
                 "scalability_pipeline",
@@ -69,7 +70,7 @@ public class OrgAApplication {
                 "logging_overhead/log_pipeline.json",
                 "logging_overhead/no_log_pipeline.json"
         );
-        */
+
         // TODO: make control experiment; static void main method without kafka
 
         runExperiments(pipelineNames,
