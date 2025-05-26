@@ -1,0 +1,9 @@
+--- EXPERIMENT ---
+Source sent 12006925 messages in 20 seconds.
+Source started 1 ms sleep at UTC: 2025-05-26T15:43:45.675465258Z
+--- EXPERIMENT ---
+Source sent 12952161 messages in 20 seconds.
+Source started 1 ms sleep at UTC: 2025-05-26T15:48:47.178891632Z
+--- EXPERIMENT ---
+Source sent 13410097 messages in 20 seconds.
+Source started 1 ms sleep at UTC: 2025-05-26T15:53:48.513546375Z
