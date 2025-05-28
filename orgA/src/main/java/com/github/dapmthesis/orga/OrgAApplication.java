@@ -61,8 +61,8 @@ public class OrgAApplication {
 
         List<String> pipelineNames = List.of(
                 /*"backpressure_pipeline.json",
-                "scalability_pipeline.json",*/
-                "kafka_overhead/2_pipeline.json",
+                "scalability_pipeline.json",
+                "kafka_overhead/2_pipeline.json",*/
                 "kafka_overhead/4_pipeline.json",
                 "kafka_overhead/8_pipeline.json",
                 "kafka_overhead/12_pipeline.json",
