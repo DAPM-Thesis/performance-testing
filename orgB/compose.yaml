@@ -2,7 +2,7 @@ networks:
   performance-testing-cluster:
     name: performance-testing-cluster
     external: true
-    driver: bridge
+    driver: overlay
 
 services:
   zookeeper-2:
