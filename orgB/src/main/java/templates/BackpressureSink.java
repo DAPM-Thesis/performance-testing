@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class BackpressureSink extends Sink {
     private boolean shouldSleep = true;
-    private final long sleepTimeMs;
+    private final long initialSleepTime;
     private final long latencyThresholdMs;
     private int messageCounter = 0;
     private boolean caughtUp = false;
@@ -29,7 +29,7 @@ public class BackpressureSink extends Sink {
         String sharedSavePathStr = "experiment_results/vms/backpressure/" + configuration.get("shared_save_file").toString();
         Path sharedSavePath = Paths.get(sharedSavePathStr).toAbsolutePath();
         this.sharedLogger = new ExperimentLogger(sharedSavePath, true);
-        this.sleepTimeMs = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
+        this.initialSleepTime = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
 
         /*
           latency_threshold is set based on the mean latency and variance of the 0.33 ms sleep throughput/latency
@@ -46,8 +46,9 @@ public class BackpressureSink extends Sink {
         messageCounter++;
 
         if (shouldSleep) {
+            System.out.println("Latency threshold is: " + latencyThresholdMs + " ms.");
             shouldSleep = false;
-            try { Thread.sleep(sleepTimeMs); }
+            try { Thread.sleep(initialSleepTime); }
             catch (InterruptedException e) { throw new RuntimeException(e); }
 
             String output = "BackpressureSink started processing at UTC: " + Instant.now();
@@ -55,10 +56,15 @@ public class BackpressureSink extends Sink {
             System.out.println(output);
         }
 
+        Instant received = Instant.now();
         Instant timeSent = ((UTCTime) messageAndPort.first()).getTime();
-        long latencyMs = Duration.between(timeSent, Instant.now()).toMillis();
+        long latencyMs = Duration.between(timeSent, received).toMillis();
+        if (messageCounter % 10000 == 0) {
+            System.out.println("Most recent latency:" + latencyMs + " ms");
+        }
 
         if (latencyMs <= latencyThresholdMs && !caughtUp) {
+            System.out.println("Got in here");
             caughtUp = true;
             String output = "BackpressureSink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
             sharedLogger.log(output + "\n");
