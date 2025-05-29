@@ -1,0 +1,3 @@
+--- EXPERIMENT ---
+Source sent 83693 messages in 30 seconds.
+Source started 0.33 ms sleep at UTC: 2025-05-29T08:55:54.966793115Z
