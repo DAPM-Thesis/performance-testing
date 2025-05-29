@@ -6,7 +6,6 @@ import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.SimpleSource;
 
 public class TimeSource extends SimpleSource<UTCTime> {
-    int counter = 0;
     private final SleepAssistant sleepAssistant;
 
     public TimeSource(Configuration configuration) {
