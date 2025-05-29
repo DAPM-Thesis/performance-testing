@@ -7,7 +7,7 @@
     { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 2, "configuration": {} },
     { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
 
-    { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep.txt" } }
+    { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep_repeat.txt" } }
   ],
 
   "channels": [
@@ -35,7 +35,7 @@
       "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep.txt" } },
+          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep_repeat.txt" } },
           "portNumber": 2
         }
       ]
@@ -55,7 +55,7 @@
       "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 2, "configuration": {} },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep.txt" } },
+          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "TimeSink",  "inputs": ["UTCTime", "UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "save_file": "033_ms_sleep_repeat.txt" } },
           "portNumber": 1
         }
       ]
