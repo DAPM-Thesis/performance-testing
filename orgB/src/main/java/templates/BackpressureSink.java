@@ -58,7 +58,7 @@ public class BackpressureSink extends Sink {
         Instant timeSent = ((UTCTime) messageAndPort.first()).getTime();
         long latencyMs = Duration.between(timeSent, Instant.now()).toMillis();
 
-        if (messageCounter % 20000 == 0)
+        if (messageCounter % 50000 == 0)
             { System.out.println("Latency after " + messageCounter + " messages: " + latencyMs + " ms."); }
 
         if (latencyMs <= latencyThresholdMs && !caughtUp) {

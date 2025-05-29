@@ -1,15 +1,15 @@
 {
   "processing elements":[
-    { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "BackpressureSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "head_start_seconds": 10, "shared_save_file": "backpressure_source.txt" } },
-    { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "BackpressureSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "lag_seconds": 10, "shared_save_file": "backpressure_sink.txt" } }
+    { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "BackpressureSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "head_start_seconds": 30, "shared_save_file": "backpressure_source.txt" } },
+    { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "BackpressureSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "lag_seconds": 30, "shared_save_file": "backpressure_sink.txt" } }
   ],
 
   "channels": [
     {
-      "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "BackpressureSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "head_start_seconds": 10, "shared_save_file": "backpressure_source.txt" } },
+      "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "BackpressureSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "head_start_seconds": 30, "shared_save_file": "backpressure_source.txt" } },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "BackpressureSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "lag_seconds": 10, "shared_save_file": "backpressure_sink.txt" } },
+          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "BackpressureSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "lag_seconds": 30, "shared_save_file": "backpressure_sink.txt" } },
           "portNumber": 1
         }
       ]
