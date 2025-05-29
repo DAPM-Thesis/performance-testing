@@ -1,0 +1,4 @@
+BackpressureSink started processing at UTC: 2025-05-29T08:45:55.765795575Z
+BackpressureSink caught up after 316494 messages at UTC: 2025-05-29T08:47:16.864824416Z
+
+
