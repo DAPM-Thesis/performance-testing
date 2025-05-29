@@ -68,8 +68,10 @@ public class OrgAApplication {
                 "kafka_overhead/16_pipeline.json",
                 "logging_overhead/log_pipeline.json",
                 "logging_overhead/no_log_pipeline.json",
-                "scalability_033_pipeline.json",*/
-                "scalability_05_pipeline.json"
+                "scalability_033_pipeline.json",
+                "scalability_05_pipeline.json",*/
+                "scalability_075_pipeline.json",
+                "scalability_1_pipeline.json"
         );
 
         // TODO: make control experiment; static void main method without kafka
