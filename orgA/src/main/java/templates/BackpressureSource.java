@@ -35,19 +35,20 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
     @Override
     public UTCTime process() {
         counter++;
-        sleepAssistant.maybeSleep();
 
         if (counter == 1) {
             System.out.println("BackpressureSource Started. Sleeping "+ sleepTimeMS + " ms between messages.");
             headstartEnd = Instant.now().plusSeconds(headStartSeconds);
         }
 
-        if (!startedSleeping && Instant.now().isAfter(headstartEnd)) {
-            startedSleeping = true;
-            logger.log("Source sent " + (counter-1) + " messages in " + headStartSeconds + " seconds.");
-            logger.log("Source started " + sleepTimeMS + " ms sleep at UTC: " + Instant.now() + '\n');
-            System.out.println("BackpressureSource will start sleeping " + sleepTimeMS + " ms now.");
-
+        if (Instant.now().isAfter(headstartEnd)) {
+            if (!startedSleeping) {
+                startedSleeping = true;
+                logger.log("Source sent " + (counter - 1) + " messages in " + headStartSeconds + " seconds.");
+                logger.log("Source started " + sleepTimeMS + " ms sleep at UTC: " + Instant.now() + '\n');
+                System.out.println("BackpressureSource will start sleeping " + sleepTimeMS + " ms now.");
+            }
+            sleepAssistant.maybeSleep();
         }
 
         return new UTCTime();

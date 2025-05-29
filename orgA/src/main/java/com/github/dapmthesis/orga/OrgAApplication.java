@@ -60,7 +60,8 @@ public class OrgAApplication {
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
 
         List<String> pipelineNames = List.of(
-                "backpressure_pipeline.json"/*,
+                "backpressure_pipeline.json",
+                "throughput/025ms_sleep_pipeline.json"/*,
                 "kafka_overhead/2_pipeline.json",
                 "kafka_overhead/4_pipeline.json",
                 "kafka_overhead/8_pipeline.json",
