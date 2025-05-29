@@ -28,7 +28,7 @@ public class BackpressureSink extends Sink {
 
         String sharedSavePathStr = "experiment_results/vms/backpressure/" + configuration.get("shared_save_file").toString();
         Path sharedSavePath = Paths.get(sharedSavePathStr).toAbsolutePath();
-        this.sharedLogger = new ExperimentLogger(sharedSavePath, true);
+        this.sharedLogger = new ExperimentLogger(sharedSavePath);
         this.sleepTimeMs = 1000L * ((Integer) configuration.get("lag_seconds")).longValue();
 
         /*
@@ -58,10 +58,13 @@ public class BackpressureSink extends Sink {
         Instant timeSent = ((UTCTime) messageAndPort.first()).getTime();
         long latencyMs = Duration.between(timeSent, Instant.now()).toMillis();
 
+        if (messageCounter % 20000 == 0)
+            { System.out.println("Latency after " + messageCounter + " messages: " + latencyMs + " ms."); }
+
         if (latencyMs <= latencyThresholdMs && !caughtUp) {
             caughtUp = true;
             String output = "BackpressureSink caught up after " + messageCounter + " messages at UTC: " + Instant.now();
-            sharedLogger.log(output + "\n");
+            sharedLogger.log(output + "\n\n");
             System.out.println(output);
         }
     }

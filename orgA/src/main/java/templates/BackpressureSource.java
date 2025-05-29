@@ -14,7 +14,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
     private int counter = 0;
     private final long headStartSeconds;
     private boolean startedSleeping = false;
-    Instant sleepStart;
+    Instant headstartEnd;
     private final ExperimentLogger logger;
     private final double sleepTimeMS;
     private final SleepAssistant sleepAssistant;
@@ -25,7 +25,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
 
         String sharedSavePath = "experiment_results/vms/backpressure/" + configuration.get("shared_save_file").toString();
         Path savePath = Paths.get(sharedSavePath).toAbsolutePath();
-        this.logger = new ExperimentLogger(savePath, true);
+        this.logger = new ExperimentLogger(savePath);
         logger.log("--- EXPERIMENT ---");
 
         sleepTimeMS = 0.33;
@@ -34,21 +34,22 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
 
     @Override
     public UTCTime process() {
-        if (counter == 0) {
-            System.out.println("BackpressureSource Started. No sleep yet.");
-            sleepStart = Instant.now().plusSeconds(headStartSeconds);
+        counter++;
+        sleepAssistant.maybeSleep();
+
+        if (counter == 1) {
+            System.out.println("BackpressureSource Started. Sleeping "+ sleepTimeMS + " ms between messages.");
+            headstartEnd = Instant.now().plusSeconds(headStartSeconds);
         }
 
-        counter++;
-        if (Instant.now().isAfter(sleepStart)) {
-            if (!startedSleeping) {
-                startedSleeping = true;
-                logger.log("Source sent " + (counter-1) + " messages in " + headStartSeconds + " seconds.");
-                logger.log("Source started " + sleepTimeMS + " ms sleep at UTC: " + Instant.now());
-                System.out.println("BackpressureSource will start sleeping " + sleepTimeMS + " ms now.");
-            }
-            sleepAssistant.maybeSleep();
+        if (!startedSleeping && Instant.now().isAfter(headstartEnd)) {
+            startedSleeping = true;
+            logger.log("Source sent " + (counter-1) + " messages in " + headStartSeconds + " seconds.");
+            logger.log("Source started " + sleepTimeMS + " ms sleep at UTC: " + Instant.now() + '\n');
+            System.out.println("BackpressureSource will start sleeping " + sleepTimeMS + " ms now.");
+
         }
+
         return new UTCTime();
     }
 }
