@@ -28,7 +28,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         this.logger = new ExperimentLogger(savePath);
         logger.log("--- EXPERIMENT ---");
 
-        sleepTimeMS = 0.33;
+        sleepTimeMS = 0.5;
         sleepAssistant = new SleepAssistant(sleepTimeMS);
     }
 
@@ -47,6 +47,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
                 logger.log("Source sent " + (counter - 1) + " messages in " + headStartSeconds + " seconds.");
                 logger.log("Source started " + sleepTimeMS + " ms sleep at UTC: " + Instant.now() + '\n');
                 System.out.println("BackpressureSource will start sleeping " + sleepTimeMS + " ms now.");
+                System.out.println("Source sent " + (counter - 1) + " messages in " + headStartSeconds + " seconds.");
             }
             sleepAssistant.maybeSleep();
         }
