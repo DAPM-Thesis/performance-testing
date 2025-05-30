@@ -93,8 +93,7 @@ public class OrgAApplication {
             for (int i = 0; i < runs; i++) {
                 Path pipelinePath = pipelineFolderPath.resolve(pipelineName);
                 String contents = retrieveContents(pipelinePath);
-                PipelineCandidate pipelineCandidate = new PipelineCandidate(contents, configURI);
-                ValidatedPipeline validatedPipeline = new ValidatedPipeline(pipelineCandidate);
+                ValidatedPipeline validatedPipeline = new ValidatedPipeline(contents, configURI);
 
                 pipelineBuilder.buildPipeline(pipelineName, validatedPipeline);
                 executionService.start(pipelineName);
