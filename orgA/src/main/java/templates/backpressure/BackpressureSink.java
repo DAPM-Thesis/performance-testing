@@ -35,10 +35,10 @@ public class BackpressureSink extends Sink {
           latency_threshold is set based on the mean latency and variance of the 0.33 ms sleep throughput/latency
           experiment results (3 runs):
 
-          adjusted mean latency : [4.50 2.25 4.83] ms
-          adjusted variance     : [562.76 119.81 663.17] ms
+          adjusted mean latency : [4.54 6.24 4.51] ms
+          adjusted variance     : [577.94 479.93 442.24] ms
         * */
-        latencyThresholdMs = (long) ((4.5+2.25+4.83)/3 + (562.76+119.81+663.17)/3);
+        latencyThresholdMs = (long) (5.1 + 500.0);
     }
 
     @Override

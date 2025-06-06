@@ -39,7 +39,7 @@ public class OrgAApplication {
         int runCount = 3;
 
         // TODO: run throughput experiments and alignment experiment
-
+        /*
         List<String> pipelineNames = List.of(
                 "throughput/025ms_sleep_pipeline.json",
                 "throughput/033ms_sleep_pipeline.json",
@@ -51,6 +51,8 @@ public class OrgAApplication {
                 //"throughput/5ms_sleep_pipeline.json"
         );
 
+         */
+
 
         // TODO: Do statistics and take note of the throughput threshold. If it is not reached, make a 0.25 ms sleep experiment.
             // TODO: start by checking 0.33 ms sleep pipeline
@@ -60,14 +62,14 @@ public class OrgAApplication {
         // TODO: Update the backpressure sleep time to be 1 sleep "step" above the lowest sleep stable sleep time from the throughput experiments
         // TODO: Update the backpressure mean_sleep threshold in the sink to be adjusted_mean + adjusted_variance for the sleep time used above
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
-        /*
+
         List<String> pipelineNames = List.of(
                 "backpressure_pipeline.json",
-                "kafka_overhead/2_pipeline.json",
-                "kafka_overhead/4_pipeline.json",
-                "kafka_overhead/8_pipeline.json",
-                "kafka_overhead/12_pipeline.json",
-                "kafka_overhead/16_pipeline.json",
+                "kafka_overhead/3_pipeline.json",
+                "kafka_overhead/5_pipeline.json",
+                "kafka_overhead/9_pipeline.json",
+                "kafka_overhead/13_pipeline.json",
+                "kafka_overhead/17_pipeline.json",
                 "logging_overhead/log_pipeline.json",
                 "logging_overhead/no_log_pipeline.json",
                 "scalability_033_pipeline.json",
@@ -76,7 +78,6 @@ public class OrgAApplication {
                 "scalability/scalability_1_pipeline.json"
         );
 
-         */
 
         // TODO: make control experiment; static void main method without kafka
 

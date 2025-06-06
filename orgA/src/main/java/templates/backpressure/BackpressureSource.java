@@ -28,7 +28,7 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         this.logger = new ExperimentLogger(savePath, true);
         logger.log("--- EXPERIMENT ---");
 
-        sleepTimeMS = 0.33;
+        sleepTimeMS = 0.5;
         sleepAssistant = new SleepAssistant(sleepTimeMS);
     }
 
