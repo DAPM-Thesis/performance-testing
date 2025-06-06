@@ -33,22 +33,22 @@ public class OrgAApplication {
         String orgID = "orgA";
         int minuteCount = 5;
         int experimentLengthSeconds = 60 * minuteCount;
-        int runCount = 3;
+        int runCount = 1;
 
         // TODO: run throughput experiments and alignment experiment
-        /*
+
         List<String> pipelineNames = List.of(
                 "throughput/025ms_sleep_pipeline.json",
-                "throughput/033ms_sleep_pipeline.json",
-                "throughput/05ms_sleep_pipeline.json",
-                "throughput/075ms_sleep_pipeline.json",
-                "throughput/1ms_sleep_pipeline.json",
+                "throughput/033ms_sleep_pipeline.json"
+                //"throughput/05ms_sleep_pipeline.json",
+                //"throughput/075ms_sleep_pipeline.json",
+                //"throughput/1ms_sleep_pipeline.json",
 
-                "alignment_pipeline.json",
+                //"alignment_pipeline.json",
 
-                "throughput/5ms_sleep_pipeline.json"
+                //"throughput/5ms_sleep_pipeline.json"
         );
-        */
+
 
         // TODO: Do statistics and take note of the throughput threshold. If it is not reached, make a 0.25 ms sleep experiment.
             // TODO: start by checking 0.33 ms sleep pipeline
@@ -58,9 +58,9 @@ public class OrgAApplication {
         // TODO: Update the backpressure sleep time to be 1 sleep "step" above the lowest sleep stable sleep time from the throughput experiments
         // TODO: Update the backpressure mean_sleep threshold in the sink to be adjusted_mean + adjusted_variance for the sleep time used above
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
-
+        /*
         List<String> pipelineNames = List.of(
-                /*"backpressure_pipeline.json",
+                "backpressure_pipeline.json",
                 "kafka_overhead/2_pipeline.json",
                 "kafka_overhead/4_pipeline.json",
                 "kafka_overhead/8_pipeline.json",
@@ -69,10 +69,12 @@ public class OrgAApplication {
                 "logging_overhead/log_pipeline.json",
                 "logging_overhead/no_log_pipeline.json",
                 "scalability_033_pipeline.json",
-                "scalability_05_pipeline.json",*/
+                "scalability_05_pipeline.json",
                 "scalability/scalability_075_pipeline.json",
                 "scalability/scalability_1_pipeline.json"
         );
+
+         */
 
         // TODO: make control experiment; static void main method without kafka
 
