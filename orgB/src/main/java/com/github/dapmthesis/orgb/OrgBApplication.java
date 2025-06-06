@@ -23,12 +23,7 @@ public class OrgBApplication {
     private static void storeTemplates(TemplateRepository templateRepository) {
         templateRepository.storeTemplate("TimeOperator", TimeOperator.class);
         templateRepository.storeTemplate("TimeSource", templates.scalability.TimeSource.class);
-        templateRepository.storeTemplate("TimeSink", templates.scalability.TimeSink.class);
-        templateRepository.storeTemplate("LoggingOverheadSink", templates.LoggingOverheadSink.class);
-        templateRepository.storeTemplate("BackpressureSink", templates.BackpressureSink.class);
-        templateRepository.storeTemplate("ThroughputSink", templates.ThroughputSink.class);
         templateRepository.storeTemplate("AlignmentSink", templates.AlignmentSink.class);
-        templateRepository.storeTemplate("KafkaOverheadSink", templates.KafkaOverheadSink.class);
     }
 
 }

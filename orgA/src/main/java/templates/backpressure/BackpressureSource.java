@@ -1,4 +1,4 @@
-package templates;
+package templates.backpressure;
 
 import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
@@ -23,9 +23,9 @@ public class BackpressureSource extends SimpleSource<UTCTime> {
         super(configuration);
         this.headStartSeconds = ((Integer) configuration.get("head_start_seconds")).longValue();
 
-        String sharedSavePath = "experiment_results/vms/backpressure/" + configuration.get("shared_save_file").toString();
+        String sharedSavePath = "experiment_results/vms_updated/backpressure/" + configuration.get("shared_save_file").toString();
         Path savePath = Paths.get(sharedSavePath).toAbsolutePath();
-        this.logger = new ExperimentLogger(savePath);
+        this.logger = new ExperimentLogger(savePath, true);
         logger.log("--- EXPERIMENT ---");
 
         sleepTimeMS = 0.33;

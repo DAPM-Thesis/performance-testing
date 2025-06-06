@@ -1,4 +1,4 @@
-package templates;
+package templates.logging_overhead;
 
 import communication.message.Message;
 import communication.message.impl.time.UTCTime;
@@ -24,12 +24,12 @@ public class LoggingOverheadSink extends Sink {
 
         this.messageCap = (int) configuration.get("n_messages");
 
-        String finalTimePath = "experiment_results/vms/logging_overhead/" + configuration.get("final_time_file").toString();
+        String finalTimePath = "experiment_results/vms_updated/logging_overhead/" + configuration.get("final_time_file").toString();
         this.finalTimeLogger = new ExperimentLogger(Paths.get(finalTimePath).toAbsolutePath());
 
         Object logFilename = configuration.get("log_file");
         if (logFilename != null) {
-            String logPath = "experiment_results/vms/logging_overhead/" + logFilename;
+            String logPath = "experiment_results/vms_updated/logging_overhead/" + logFilename;
             this.logger = new ExperimentLogger(Paths.get(logPath).toAbsolutePath());
         } else {
             this.logger = null;

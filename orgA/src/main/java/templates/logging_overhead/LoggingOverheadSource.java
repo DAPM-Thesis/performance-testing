@@ -1,4 +1,4 @@
-package templates;
+package templates.logging_overhead;
 
 import communication.message.impl.time.UTCTime;
 import pipeline.processingelement.Configuration;

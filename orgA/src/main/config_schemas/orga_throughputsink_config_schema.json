@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.dapm.org/config/orgb_kafkaoverheadsink_config_schema.json",
-  "title": "orgB KafkaOverheadSink Config",
+  "$id": "https://www.dapm.org/config/orga_throughputsink_config_schema.json",
+  "title": "orgA ThroughputSink Config",
   "type": "object",
   "properties": {
     "save_file": { "type": "string", "pattern": "^[^/\\\\]*$" },
     "log_frequency": { "type": "integer", "minimum": 1 }
   },
-  "required": ["save_file", "log_frequency"],
+  "required": ["save_file"],
   "additionalProperties": false
 }

@@ -10,6 +10,9 @@ import pipeline.PipelineBuilder;
 import pipeline.service.PipelineExecutionService;
 import repository.TemplateRepository;
 import templates.AlignmentSource;
+import templates.ThroughputSink;
+import templates.backpressure.BackpressureSource;
+import templates.logging_overhead.LoggingOverheadSource;
 
 import java.io.IOException;
 import java.net.URI;
@@ -33,19 +36,18 @@ public class OrgAApplication {
         String orgID = "orgA";
         int minuteCount = 5;
         int experimentLengthSeconds = 60 * minuteCount;
-        int runCount = 1;
+        int runCount = 3;
 
         // TODO: run throughput experiments and alignment experiment
 
         List<String> pipelineNames = List.of(
                 "throughput/025ms_sleep_pipeline.json",
-                "throughput/033ms_sleep_pipeline.json"
-                //"throughput/05ms_sleep_pipeline.json",
-                //"throughput/075ms_sleep_pipeline.json",
-                //"throughput/1ms_sleep_pipeline.json",
+                "throughput/033ms_sleep_pipeline.json",
+                "throughput/05ms_sleep_pipeline.json",
+                "throughput/075ms_sleep_pipeline.json",
+                "throughput/1ms_sleep_pipeline.json"
 
                 //"alignment_pipeline.json",
-
                 //"throughput/5ms_sleep_pipeline.json"
         );
 
@@ -128,9 +130,11 @@ public class OrgAApplication {
     private static void storeTemplates(TemplateRepository templateRepository) {
         templateRepository.storeTemplate("AlignmentSource", AlignmentSource.class);
         templateRepository.storeTemplate("TimeSource", templates.TimeSource.class);
-        templateRepository.storeTemplate("BackpressureSource", templates.BackpressureSource.class);
-        templateRepository.storeTemplate("LoggingOverheadSource", templates.LoggingOverheadSource.class);
+        templateRepository.storeTemplate("BackpressureSource", BackpressureSource.class);
+        templateRepository.storeTemplate("LoggingOverheadSource", LoggingOverheadSource.class);
         templateRepository.storeTemplate("ThroughputSource", templates.ThroughputSource.class);
         templateRepository.storeTemplate("TimeOperator", templates.TimeOperator.class);
+
+        templateRepository.storeTemplate("ThroughputSink", ThroughputSink.class);
     }
 }
