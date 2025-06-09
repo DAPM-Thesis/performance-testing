@@ -74,14 +74,14 @@ public class OrgAApplication {
                 //"kafka_overhead/5_pipeline.json",
                 //"kafka_overhead/9_pipeline.json",
                 //"kafka_overhead/13_pipeline.json",
-                //"kafka_overhead/17_pipeline.json"
+                "kafka_overhead/17_pipeline.json"
 
                 //"backpressure_pipeline.json",
                 //"logging_overhead/log_pipeline.json",
                 //"logging_overhead/no_log_pipeline.json",
-                "scalability/scalability_05_pipeline.json",
-                "scalability/scalability_075_pipeline.json",
-                "scalability/scalability_1_pipeline.json"
+                //"scalability/scalability_05_pipeline.json",
+                //"scalability/scalability_075_pipeline.json",
+                //"scalability/scalability_1_pipeline.json"
         );
 
 
