@@ -25,7 +25,7 @@
 
     { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 8, "configuration": {} },
 
-    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "13_elem_05_ms_sleep.txt", "log_frequency": 10000 } }
+    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "17_elem_05_ms_sleep.txt", "log_frequency": 10000 } }
   ],
 
   "channels": [
@@ -183,7 +183,7 @@
       "publisher": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 8, "configuration": {} },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "13_elem_05_ms_sleep.txt", "log_frequency": 10000 } },
+          "processing element": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "17_elem_05_ms_sleep.txt", "log_frequency": 10000 } },
           "portNumber": 1
         }
       ]
