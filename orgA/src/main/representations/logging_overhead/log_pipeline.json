@@ -1,7 +1,8 @@
 {
   "processing elements":[
     { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "LoggingOverheadSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "n_messages": 500000 } },
-    { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "log_final.txt", "n_messages": 500000, "log_file": "logged_messages.txt" } }
+    { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
+    { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8082", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "log_final.txt", "n_messages": 500000, "log_file": "logged_messages.txt" } }
   ],
 
   "channels": [
@@ -9,7 +10,17 @@
       "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.64:8082", "templateID": "LoggingOverheadSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": { "n_messages": 500000 } },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.67:8083", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "log_final.txt", "n_messages": 500000, "log_file": "logged_messages.txt" } },
+          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
+          "portNumber": 1
+        }
+      ]
+    },
+
+    {
+      "publisher": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator", "inputs": ["UTCTime"], "output": "UTCTime", "instanceNumber": 1, "configuration": {} },
+      "subscribers": [
+        {
+          "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8082", "templateID": "LoggingOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": { "final_time_file": "log_final.txt", "n_messages": 500000, "log_file": "logged_messages.txt" } },
           "portNumber": 1
         }
       ]
