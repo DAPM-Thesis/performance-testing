@@ -16,6 +16,9 @@ import templates.backpressure.BackpressureSink;
 import templates.backpressure.BackpressureSource;
 import templates.logging_overhead.LoggingOverheadSink;
 import templates.logging_overhead.LoggingOverheadSource;
+import templates.scalability.TimeOperator;
+import templates.scalability.TimeSink;
+import templates.scalability.TimeSource;
 
 import java.io.IOException;
 import java.net.URI;
@@ -133,15 +136,16 @@ public class OrgAApplication {
 
     private static void storeTemplates(TemplateRepository templateRepository) {
         templateRepository.storeTemplate("AlignmentSource", AlignmentSource.class);
-        templateRepository.storeTemplate("TimeSource", templates.TimeSource.class);
+        templateRepository.storeTemplate("TimeSource", TimeSource.class);
         templateRepository.storeTemplate("BackpressureSource", BackpressureSource.class);
         templateRepository.storeTemplate("LoggingOverheadSource", LoggingOverheadSource.class);
         templateRepository.storeTemplate("ThroughputSource", templates.ThroughputSource.class);
-        templateRepository.storeTemplate("TimeOperator", templates.TimeOperator.class);
+        templateRepository.storeTemplate("TimeOperator", TimeOperator.class);
 
         templateRepository.storeTemplate("ThroughputSink", ThroughputSink.class);
         templateRepository.storeTemplate("KafkaOverheadSink", KafkaOverheadSink.class);
         templateRepository.storeTemplate("BackpressureSink", BackpressureSink.class);
         templateRepository.storeTemplate("LoggingOverheadSink", LoggingOverheadSink.class);
+        templateRepository.storeTemplate("TimeSink", TimeSink.class);
     }
 }
