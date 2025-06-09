@@ -70,11 +70,11 @@ public class OrgAApplication {
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
 
         List<String> pipelineNames = List.of(
-                //"kafka_overhead/3_pipeline.json",
-                //"kafka_overhead/5_pipeline.json",
-                //"kafka_overhead/9_pipeline.json",
-                //"kafka_overhead/13_pipeline.json",
-                //"kafka_overhead/17_pipeline.json"
+                "kafka_overhead/3_pipeline.json",
+                "kafka_overhead/5_pipeline.json",
+                "kafka_overhead/9_pipeline.json",
+                "kafka_overhead/13_pipeline.json",
+                "kafka_overhead/17_pipeline.json",
                 "kafka_overhead/25_pipeline.json"
 
                 //"backpressure_pipeline.json",
@@ -109,7 +109,7 @@ public class OrgAApplication {
 
                 pipelineBuilder.buildPipeline(pipelineName, validatedPipeline);
                 executionService.start(pipelineName);
-                System.out.println("Experiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.");
+                System.out.println("\n\nExperiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.\n\n");
 
                 try { Thread.sleep(1000L * experimentLengthSeconds); }
                 catch (InterruptedException e) { Thread.currentThread().interrupt(); }

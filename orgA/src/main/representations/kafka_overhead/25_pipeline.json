@@ -1,6 +1,6 @@
 {
   "processing elements":[
-    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 0.5}  },
+    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 0.75}  },
 
     { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
     { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
@@ -37,12 +37,12 @@
 
     { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 12, "configuration": {} },
 
-    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "25_elem_05_ms_sleep.txt", "log_frequency": 10000 } }
+    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "25_elem_075_ms_sleep.txt", "log_frequency": 10000 } }
   ],
 
   "channels": [
     {
-      "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 0.5}  },
+      "publisher": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 0.75}  },
       "subscribers": [
         {
           "processing element": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
@@ -275,7 +275,7 @@
       "publisher": { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 12, "configuration": {} },
       "subscribers": [
         {
-          "processing element": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "25_elem_05_ms_sleep.txt", "log_frequency": 10000 } },
+          "processing element": { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "KafkaOverheadSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "25_elem_075_ms_sleep.txt", "log_frequency": 10000 } },
           "portNumber": 1
         }
       ]
