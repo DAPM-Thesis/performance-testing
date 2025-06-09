@@ -1,4 +1,4 @@
-package templates;
+package templates.scalability;
 
 import communication.message.impl.time.UTCTime;
 import experiment.SleepAssistant;

@@ -10,9 +10,15 @@ import pipeline.PipelineBuilder;
 import pipeline.service.PipelineExecutionService;
 import repository.TemplateRepository;
 import templates.AlignmentSource;
+import templates.KafkaOverheadSink;
 import templates.ThroughputSink;
+import templates.backpressure.BackpressureSink;
 import templates.backpressure.BackpressureSource;
+import templates.logging_overhead.LoggingOverheadSink;
 import templates.logging_overhead.LoggingOverheadSource;
+import templates.scalability.TimeOperator;
+import templates.scalability.TimeSink;
+import templates.scalability.TimeSource;
 
 import java.io.IOException;
 import java.net.URI;
@@ -64,21 +70,18 @@ public class OrgAApplication {
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
 
         List<String> pipelineNames = List.of(
-                "kafka_overhead/3_pipeline.json",
-                "kafka_overhead/5_pipeline.json",
-                "kafka_overhead/9_pipeline.json",
-                "kafka_overhead/13_pipeline.json",
-                "kafka_overhead/17_pipeline.json"
+                //"kafka_overhead/3_pipeline.json",
+                //"kafka_overhead/5_pipeline.json",
+                //"kafka_overhead/9_pipeline.json",
+                //"kafka_overhead/13_pipeline.json",
+                //"kafka_overhead/17_pipeline.json"
 
-                /*
-                "backpressure_pipeline.json",
-                "logging_overhead/log_pipeline.json",
-                "logging_overhead/no_log_pipeline.json",
-                "scalability_05_pipeline.json",
+                //"backpressure_pipeline.json",
+                //"logging_overhead/log_pipeline.json",
+                //"logging_overhead/no_log_pipeline.json",
+                "scalability/scalability_05_pipeline.json",
                 "scalability/scalability_075_pipeline.json",
                 "scalability/scalability_1_pipeline.json"
-
-                 */
         );
 
 
@@ -133,12 +136,16 @@ public class OrgAApplication {
 
     private static void storeTemplates(TemplateRepository templateRepository) {
         templateRepository.storeTemplate("AlignmentSource", AlignmentSource.class);
-        templateRepository.storeTemplate("TimeSource", templates.TimeSource.class);
+        templateRepository.storeTemplate("TimeSource", TimeSource.class);
         templateRepository.storeTemplate("BackpressureSource", BackpressureSource.class);
         templateRepository.storeTemplate("LoggingOverheadSource", LoggingOverheadSource.class);
         templateRepository.storeTemplate("ThroughputSource", templates.ThroughputSource.class);
-        templateRepository.storeTemplate("TimeOperator", templates.TimeOperator.class);
+        templateRepository.storeTemplate("TimeOperator", TimeOperator.class);
 
         templateRepository.storeTemplate("ThroughputSink", ThroughputSink.class);
+        templateRepository.storeTemplate("KafkaOverheadSink", KafkaOverheadSink.class);
+        templateRepository.storeTemplate("BackpressureSink", BackpressureSink.class);
+        templateRepository.storeTemplate("LoggingOverheadSink", LoggingOverheadSink.class);
+        templateRepository.storeTemplate("TimeSink", TimeSink.class);
     }
 }
