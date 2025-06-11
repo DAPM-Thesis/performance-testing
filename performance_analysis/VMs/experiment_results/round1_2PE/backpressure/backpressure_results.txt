@@ -1,0 +1,32 @@
+--- EXPERIMENT ---
+Source sleeps 0.33 ms between messages.
+Source sent 82877 messages after 30 seconds, at UTC: 2025-05-29T08:45:52.220515403Z
+BackpressureSink started processing at UTC: 2025-05-29T08:45:55.765795575Z
+BackpressureSink caught up after 316494 messages at UTC: 2025-05-29T08:47:16.864824416Z
+
+--- EXPERIMENT ---
+Source sleeps 0.33 ms between messages.
+Source sent 83639 messages after 30 seconds, at UTC: 2025-05-29T08:50:53.726625270Z
+BackpressureSink started processing at UTC: 2025-05-29T08:50:56.772393426Z
+BackpressureSink caught up after 300351 messages at UTC: 2025-05-29T08:52:12.187991252Z
+
+--- EXPERIMENT ---
+Source sleeps 0.33 ms between messages.
+Source sent 83693 messages after 30 seconds, at UTC: 2025-05-29T08:55:54.966793115Z
+BackpressureSink started processing at UTC: 2025-05-29T08:55:58.001974186Z
+BackpressureSink caught up after 292650 messages at UTC: 2025-05-29T08:57:10.630130291Z
+
+_______________________
+
+Added manually afterwards:
+Experiment 1:
+    - It took the sink 84.6 seconds to catch up
+    - After the initial 30 seconds, an additional 316,494 messages were observed before catching up
+
+Experiment 2:
+    - It took the sink 78.5 seconds to catch up
+    - After the initial 30 seconds, an additional 300,351 messages were observed before catching up
+
+Experiment 3:
+    - It took the sink 75.7 seconds to catch up
+    - After the initial 30 seconds, an additional 292,650 messages were observed before catching up

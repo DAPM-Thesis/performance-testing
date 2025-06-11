@@ -1,0 +1,4 @@
+Source sent 998912 messages in 20 seconds.
+Source started 1 ms sleep at UTC: 2025-05-01T08:17:28.599596100Z
+Sink started processing at UTC: 2025-05-01T08:17:31.895263300Z
+Sink caught up at UTC: 2025-05-01T08:17:50.422020600Z
