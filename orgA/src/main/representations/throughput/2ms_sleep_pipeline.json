@@ -1,0 +1,31 @@
+{
+  "processing elements":[
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 2} },
+    { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
+    { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "2ms_sleep.txt"} }
+
+
+  ],
+
+  "channels": [
+    {
+      "publisher": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 2} },
+      "subscribers": [
+        {
+          "processing element": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
+          "portNumber": 1
+        }
+      ]
+    },
+
+    {
+      "publisher": { "organizationID": "orgB", "hostURL": "http://localhost:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
+      "subscribers": [
+        {
+          "processing element": { "organizationID": "orgA", "hostURL": "http://localhost:8082", "templateID": "ThroughputSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "2ms_sleep.txt"} },
+          "portNumber": 1
+        }
+      ]
+    }
+  ]
+}

@@ -43,10 +43,10 @@ public class OrgAApplication {
                 //"throughput/033ms_sleep_pipeline.json",
                 //"throughput/05ms_sleep_pipeline.json",
                 //"throughput/075ms_sleep_pipeline.json",
-                "throughput/1ms_sleep_pipeline.json"
+                //"throughput/1ms_sleep_pipeline.json"
 
                 //"alignment_pipeline.json",
-
+                "throughput/2ms_sleep_pipeline.json"
                 //"throughput/5ms_sleep_pipeline.json"
         );
 
@@ -100,7 +100,7 @@ public class OrgAApplication {
 
                 pipelineBuilder.buildPipeline(pipelineName, validatedPipeline);
                 executionService.start(pipelineName);
-                System.out.println("Experiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.");
+                System.out.println("\n\nExperiment started (" + pipelineName + "), run " + (i + 1) + " of " + runs + ". Running for " + experimentLengthSeconds + " seconds.\n\n");
 
                 try { Thread.sleep(1000L * experimentLengthSeconds); }
                 catch (InterruptedException e) { Thread.currentThread().interrupt(); }
