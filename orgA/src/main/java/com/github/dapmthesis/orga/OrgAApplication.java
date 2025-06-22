@@ -19,6 +19,8 @@ import templates.logging_overhead.LoggingOverheadSource;
 import templates.scalability.TimeOperator;
 import templates.scalability.TimeSink;
 import templates.scalability.TimeSource;
+import templates.wikipedia.WikipediaSink;
+import templates.wikipedia.WikipediaSource;
 
 import java.io.IOException;
 import java.net.URI;
@@ -68,7 +70,7 @@ public class OrgAApplication {
         // TODO: Update the backpressure sleep time to be 1 sleep "step" above the lowest sleep stable sleep time from the throughput experiments
         // TODO: Update the backpressure mean_sleep threshold in the sink to be adjusted_mean + adjusted_variance for the sleep time used above
         // TODO: Run kafka_overhead, backpressure, and scalability_pipeline experiments
-
+        /*
         List<String> pipelineNames = List.of(
                 "kafka_overhead/3_pipeline.json",
                 "kafka_overhead/5_pipeline.json",
@@ -84,7 +86,9 @@ public class OrgAApplication {
                 //"scalability/scalability_075_pipeline.json",
                 //"scalability/scalability_1_pipeline.json"
         );
+        */
 
+        List<String> pipelineNames = List.of("wiki_latency_pipeline.json");
 
         // TODO: make control experiment; static void main method without kafka
 
@@ -148,5 +152,7 @@ public class OrgAApplication {
         templateRepository.storeTemplate("BackpressureSink", BackpressureSink.class);
         templateRepository.storeTemplate("LoggingOverheadSink", LoggingOverheadSink.class);
         templateRepository.storeTemplate("TimeSink", TimeSink.class);
+        templateRepository.storeTemplate("WikipediaSource", WikipediaSource.class);
+        templateRepository.storeTemplate("WikipediaSink", WikipediaSink.class);
     }
 }
