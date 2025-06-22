@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import communication.message.impl.event.Attribute;
 import communication.message.impl.event.Event;
+import communication.message.impl.time.UTCTime;
 import org.springframework.web.reactive.function.client.WebClient;
 import pipeline.processingelement.Configuration;
 import pipeline.processingelement.source.WebSource;
@@ -49,7 +50,7 @@ public class WikipediaSource extends WebSource<Event> {
                             Set<Attribute<?>> attributes = new HashSet<>();
                             Attribute<String> language = new Attribute<>("domain", domain.asText());
                             attributes.add(language);
-                            attributes.add(new Attribute<>("sent time", Instant.now()));
+                            attributes.add(new Attribute<>("sent time", new UTCTime()));
                             sink.next(new Event(title, type, timestamp, attributes));
                         }
                     } catch (JsonProcessingException e) {
