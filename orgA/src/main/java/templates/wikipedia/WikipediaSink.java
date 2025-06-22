@@ -30,6 +30,7 @@ public class WikipediaSink extends Sink {
         if (!hasBegun) {
             hasBegun = true;
             deadline = Instant.now().plus(experimentDuration);
+            System.out.println("\nSink received first event\n");
         }
 
         if (Instant.now().isAfter(deadline)) {

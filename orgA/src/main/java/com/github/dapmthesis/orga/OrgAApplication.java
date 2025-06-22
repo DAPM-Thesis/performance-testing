@@ -42,9 +42,9 @@ public class OrgAApplication {
 
 
         String orgID = "orgA";
-        int minuteCount = 5;
+        int minuteCount = 10;
         int experimentLengthSeconds = 60 * minuteCount;
-        int runCount = 3;
+        int runCount = 1;
 
         // TODO: run throughput experiments and alignment experiment
         /*
