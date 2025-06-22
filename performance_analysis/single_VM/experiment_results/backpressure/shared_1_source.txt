@@ -1,0 +1,2 @@
+Source sent 11191778 messages in 20 seconds.
+Source started 1 ms sleep at UTC: 2025-05-21T13:56:52.213789318Z

@@ -1,0 +1,1 @@
+Without logging: processed 500000 messages in 117301 ms

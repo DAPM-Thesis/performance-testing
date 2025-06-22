@@ -1,0 +1,1 @@
+This experiment (experiment_1.txt) serves to show the speed slowdown of logging in experiments. In it, 500,000 messages were sent with and without logging a counter for every message received.

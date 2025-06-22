@@ -1,0 +1,4 @@
+Without logging every message: processed 500000 messages in 5354 ms
+With logging every message: processed 500000 messages in 234103 ms
+
+*manually added afterwards:* logging made processing 43 times slower.
