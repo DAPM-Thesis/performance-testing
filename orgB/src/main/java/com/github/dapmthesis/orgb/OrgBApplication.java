@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import repository.TemplateRepository;
+import templates.TrivialEventOperator;
 import templates.scalability.TimeOperator;
 
 @SpringBootApplication
@@ -24,6 +25,7 @@ public class OrgBApplication {
         templateRepository.storeTemplate("TimeOperator", TimeOperator.class);
         templateRepository.storeTemplate("TimeSource", templates.scalability.TimeSource.class);
         templateRepository.storeTemplate("AlignmentSink", templates.AlignmentSink.class);
+        templateRepository.storeTemplate("TrivialEventOperator", TrivialEventOperator.class);
     }
 
 }

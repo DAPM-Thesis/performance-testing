@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.dapm.org/config/orga_wikipediasource_config_schema.json",
+  "title": "orgA WikipediaSource Config",
+  "type": "object",
+  "properties": {}
+}

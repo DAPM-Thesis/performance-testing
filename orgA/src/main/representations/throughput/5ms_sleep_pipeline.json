@@ -2,7 +2,7 @@
   "processing elements":[
     { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSource", "inputs": [], "output": "UTCTime", "instanceNumber": 1, "configuration": {"sleep_ms": 5} },
     { "organizationID": "orgB", "hostURL": "http://130.225.70.64:8083", "templateID": "TimeOperator",  "inputs": ["UTCTime"],  "output": "UTCTime",  "instanceNumber": 1, "configuration": {} },
-    { "organizationID": "orgA", "hostURL": "http://130.225.70.67:8082", "templateID": "ThroughputSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "5ms_sleep.txt"} }
+    { "organizationID": "orgA", "hostURL": "http://123.456.78.90:8082", "templateID": "ThroughputSink",  "inputs": ["UTCTime"],  "output": null,  "instanceNumber": 1, "configuration": {"save_file": "5ms_sleep.txt"} }
 
 
   ],
