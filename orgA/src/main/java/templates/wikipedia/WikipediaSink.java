@@ -2,6 +2,7 @@ package templates.wikipedia;
 
 import communication.message.Message;
 import communication.message.impl.event.Event;
+import communication.message.impl.time.UTCTime;
 import experiment.ExperimentLogger;
 import pipeline.processingelement.Configuration;
 import pipeline.processingelement.Sink;
@@ -38,12 +39,12 @@ public class WikipediaSink extends Sink {
             try { Thread.sleep(10000); } catch (InterruptedException e) { throw new RuntimeException(e); }
         } else {
             Event event = (Event) eventAndPortNumber.first();
-            Instant sentTime = (Instant) event.getAttributes().stream()
+            UTCTime sentTime = (UTCTime) event.getAttributes().stream()
                     .filter(a -> a.getName().equals("sent time"))
                     .findFirst()
                     .get().getValue();
 
-            logger.log(Long.toString(Duration.between(sentTime, Instant.now()).toNanos()));
+            logger.log(Long.toString(Duration.between(sentTime.getTime(), Instant.now()).toNanos()));
         }
 
     }
