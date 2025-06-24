@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import repository.TemplateRepository;
+import templates.BehaviouralPatternsConformance;
+import templates.HeuristicsMiner;
+import templates.MeanJoinSaver;
 import templates.scalability.TimeOperator;
 
 @SpringBootApplication
@@ -29,6 +32,9 @@ public class OrgBApplication {
         templateRepository.storeTemplate("ThroughputSink", templates.ThroughputSink.class);
         templateRepository.storeTemplate("AlignmentSink", templates.AlignmentSink.class);
         templateRepository.storeTemplate("KafkaOverheadSink", templates.KafkaOverheadSink.class);
+        templateRepository.storeTemplate("MeanJoinSaver", MeanJoinSaver.class);
+        templateRepository.storeTemplate("BehaviouralPatternsConformance", BehaviouralPatternsConformance.class);
+        templateRepository.storeTemplate("HeuristicsMiner", HeuristicsMiner.class);
     }
 
 }

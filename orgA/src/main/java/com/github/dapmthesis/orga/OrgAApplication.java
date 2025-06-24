@@ -9,8 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import pipeline.PipelineBuilder;
 import pipeline.service.PipelineExecutionService;
 import repository.TemplateRepository;
-import templates.AlignmentSource;
-import templates.ThroughputSink;
+import templates.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -32,12 +31,14 @@ public class OrgAApplication {
 
 
         String orgID = "orgA";
-        int minuteCount = 5;
+        int minuteCount = 10;
         int experimentLengthSeconds = 60 * minuteCount;
         int runCount = 1;
 
-        // TODO: run throughput experiments and alignment experiment
+        List<String> pipelineNames = List.of("wiki_example_pipeline.json");
 
+        // TODO: run throughput experiments and alignment experiment
+        /*
         List<String> pipelineNames = List.of(
                 //"throughput/025ms_sleep_pipeline.json",
                 //"throughput/033ms_sleep_pipeline.json",
@@ -49,6 +50,8 @@ public class OrgAApplication {
 
                 //"throughput/5ms_sleep_pipeline.json"
         );
+
+         */
 
 
         // TODO: Do statistics and take note of the throughput threshold. If it is not reached, make a 0.25 ms sleep experiment.
@@ -134,5 +137,8 @@ public class OrgAApplication {
         templateRepository.storeTemplate("ThroughputSource", templates.ThroughputSource.class);
         templateRepository.storeTemplate("TimeOperator", templates.TimeOperator.class);
         templateRepository.storeTemplate("ThroughputSink", ThroughputSink.class);
+        templateRepository.storeTemplate("LanguageFilter", LanguageFilter.class);
+        templateRepository.storeTemplate("PetriNetSink", PetriNetSink.class);
+        templateRepository.storeTemplate("WikipediaSource", WikipediaSource.class);
     }
 }
